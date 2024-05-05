@@ -13,7 +13,7 @@ class Solution {
             return;
         }
         
-        for (int i = startIdx; i <= n; i++) {
+        for (int i = startIdx; i <= n - (k - path.size()) + 1; i++) {
             path.add(i);
             backtracking(n, k, i + 1);
             path.removeLast();
