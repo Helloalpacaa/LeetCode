@@ -8,7 +8,7 @@ class Solution {
                 ans[stack.peek()] = i - stack.peek();
                 stack.pop();  
             }
-            stack.push(i);
+            stack.push(i); // cannot use add, add is for Queue
         }
         return ans;
     }
