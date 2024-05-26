@@ -7,7 +7,7 @@ class Solution {
             while (!stack.isEmpty() && height[i] > height[stack.peek()]) {
                 int base = height[stack.pop()];
                 if (!stack.isEmpty()) {
-                    int left = stack.peek();
+                    int left = stack.peek(); // left不能pop
                     int area = (Math.min(height[i], height[left]) - base) * (i - left - 1);
                     water += area;
                 }
