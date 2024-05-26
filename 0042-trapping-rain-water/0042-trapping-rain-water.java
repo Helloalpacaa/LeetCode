@@ -10,7 +10,6 @@ class Solution {
                     int left = stack.peek();
                     int area = (Math.min(height[i], height[left]) - base) * (i - left - 1);
                     water += area;
-                    System.out.print(area);
                 }
             }
             stack.push(i);
