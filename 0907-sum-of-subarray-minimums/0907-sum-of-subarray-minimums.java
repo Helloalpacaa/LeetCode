@@ -1,16 +1,14 @@
 class Solution {
     public int sumSubarrayMins(int[] arr) {
         int n = arr.length;
-        long sumSubarrayMins = 0;
-        int mod = 1000000007;
+        int[] pse = new int[n]; // previous smaller element, default value is -1
+        int[] nse = new int[n]; // next smaller element, default value is n
         
         Stack<Integer> stack = new Stack<>();
-        int[] pse = new int[n];
-        int[] nse = new int[n];
         
-        // Find the Previous Smaller Element (PSE) for each element
+        // 栈里只存一个值或者不存值，当遇到1时，1比3小，pop 3，这时栈为空，说明1左边没有比它小的值，单调递增栈
         for (int i = 0; i < n; i++) {
-            while (!stack.isEmpty() && arr[stack.peek()] >= arr[i]) {
+            while (!stack.isEmpty() && arr[i] < arr[stack.peek()]) {
                 stack.pop();
             }
             pse[i] = stack.isEmpty() ? -1 : stack.peek();
@@ -19,20 +17,20 @@ class Solution {
         
         stack.clear();
         
-        // Find the Next Smaller Element (NSE) for each element
         for (int i = n - 1; i >= 0; i--) {
-            while (!stack.isEmpty() && arr[stack.peek()] > arr[i]) {
+            while (!stack.isEmpty() && arr[i] <= arr[stack.peek()]) {
                 stack.pop();
             }
             nse[i] = stack.isEmpty() ? n : stack.peek();
             stack.push(i);
         }
         
-        // Calculate the contribution of each element to the sum
+        long sumSubarrayMins = 0;
+        int mod = 1000000007;
+        
         for (int i = 0; i < n; i++) {
-            long leftCount = i - pse[i];
-            long rightCount = nse[i] - i;
-            sumSubarrayMins = (sumSubarrayMins + (leftCount * rightCount * arr[i]) % mod) % mod;
+            long contribution = (long) arr[i] * (i - pse[i]) * (nse[i] - i);
+            sumSubarrayMins = (sumSubarrayMins + contribution) % mod;
         }
         
         return (int) sumSubarrayMins;
