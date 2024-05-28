@@ -20,7 +20,6 @@ class Solution {
                     int h = height[stack.pop()];
                     int w = stack.isEmpty() ? j : j - stack.peek() - 1;
                     int area = h * w;
-                    System.out.println(area);
                     maximalRectangle = Math.max(maximalRectangle, area);
                 }
                 stack.push(j);
