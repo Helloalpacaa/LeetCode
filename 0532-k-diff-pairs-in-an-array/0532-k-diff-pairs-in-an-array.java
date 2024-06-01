@@ -7,15 +7,9 @@ class Solution {
         }
         
         int count = 0;
-        for (Map.Entry<Integer, Integer> pair: map.entrySet()) {
-            if (k == 0) {
-                if (pair.getValue() >= 2) {
-                    count++;
-                }
-            } else {
-                if (map.containsKey(pair.getKey() + k)) {
-                    count++;
-                }
+        for (int key: map.keySet()) {
+            if ((k == 0 && map.get(key) > 1) || (k > 0 && map.containsKey(key + k))) {
+                count++;
             }
         }
         
