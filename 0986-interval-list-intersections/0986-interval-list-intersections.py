@@ -10,7 +10,7 @@ class Solution:
             b1 = secondList[j][0]
             b2 = secondList[j][1]
             
-            if (a1 <= b2 and b1 <= a2) or (b1 <= a2 and b2 >= a1):
+            if (a1 <= b2 and b1 <= a2) :
                 intersection.append([max(a1, b1), min(a2, b2)])
                 
             if (a2 < b2):
