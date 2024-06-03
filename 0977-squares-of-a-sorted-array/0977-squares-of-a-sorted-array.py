@@ -11,5 +11,4 @@ class Solution:
                 sortedSquares.append(nums[i] ** 2)
                 i += 1
                 
-        sortedSquares.reverse()
-        return sortedSquares
+        return sortedSquares[::-1]
