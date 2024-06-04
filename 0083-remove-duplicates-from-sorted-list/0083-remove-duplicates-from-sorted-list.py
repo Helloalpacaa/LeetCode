@@ -13,12 +13,10 @@ class Solution:
         fast = head.next
         
         while fast is not None:
-            if fast.val == slow.val:
-                fast = fast.next
-            else:
+            if fast.val != slow.val:
                 slow.next = fast
                 slow = fast
-                fast = fast.next
+            fast = fast.next
         
         slow.next = None
         
