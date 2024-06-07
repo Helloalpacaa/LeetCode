@@ -3,16 +3,12 @@ class Solution:
         if len(arr) < 3:
             return False
         
-        maxIndex = arr.index(max(arr))
-        if maxIndex == 0 or maxIndex == len(arr) - 1:
-            return False
+        left, right = 0, len(arr) - 1
+
+        while left + 1 < len(arr) and arr[left + 1] > arr[left]:
+            left += 1
+            
+        while right - 1 >= 0 and arr[right] < arr[right - 1]:
+            right -= 1
         
-        for i in range(0, maxIndex + 1):
-            if i > 0 and arr[i] <= arr[i - 1]:
-                return False
-        
-        for i in range(maxIndex, len(arr)):
-            if i > maxIndex and arr[i] >= arr[i - 1]:
-                return False
-        
-        return True
+        return left == right and left != 0 and right != len(arr) - 1
