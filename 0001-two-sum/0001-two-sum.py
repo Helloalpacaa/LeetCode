@@ -1,9 +1,10 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        numsMap = {}
-            
+        hm = {}
+
         for i in range(len(nums)):
-            compliment = target - nums[i]
-            if compliment in numsMap:
-                return [i, numsMap[compliment]]
-            numsMap[nums[i]] = i
+            if target - nums[i] in hm:
+                return [hm[target - nums[i]], i]
+            hm[nums[i]] = i
+        
+        
