@@ -10,8 +10,8 @@ class Solution:
         
         slow = head
         fast = head.next
-        
-        while fast is not None:
+            
+        while fast:
             if fast.val != slow.val:
                 slow.next = fast
                 slow = fast
@@ -20,4 +20,5 @@ class Solution:
         slow.next = None
         
         return head
+            
         
