@@ -1,14 +1,17 @@
 class Solution:
     def reverseStr(self, s: str, k: int) -> str:
-        s = list(s)
+        i = 0
+        arr = list(s)
+        while i < len(s):
+            self.reverse(arr, i, min(i + k - 1, len(s) - 1))
+            i += k * 2
         
-        def reverse(string, i, j):
-            while i < j:
-                string[i], string[j] = string[j], string[i]
-                i += 1
-                j -= 1
+        return "".join(arr)
+    
+    def reverse(self, arr: list, i: int, j: int) -> None:
+        while i < j:
+            arr[i], arr[j] = arr[j], arr[i]
+            i += 1
+            j -= 1
             
-        for i in range(0, len(s), k * 2):
-            reverse(s, i, min(i + k - 1, len(s) - 1))
-        
-        return ''.join(s)
+            
