@@ -1,15 +1,18 @@
 class Solution:
     def sortArrayByParityII(self, nums: List[int]) -> List[int]:
-        i = 0
-        j = 1
-        while i < len(nums) - 1 and j < len(nums):
-            if nums[i] % 2 == 0:
-                i += 2
-            elif nums[j] % 2 != 0:
-                j += 2
-            else:
-                nums[i], nums[j] = nums[j], nums[i]
-                i += 2
-                j += 2
+        even = 0
+        odd = 1
+        
+        while even < len(nums) and odd < len(nums):
+            while even < len(nums) and nums[even] % 2 == 0:
+                even += 2
+            while odd < len(nums) and nums[odd] % 2 != 0:
+                odd += 2
+            
+            if even < len(nums):
+                nums[even], nums[odd] = nums[odd], nums[even]
+            
+            even += 2
+            odd += 2
         
         return nums
