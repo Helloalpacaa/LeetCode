@@ -6,5 +6,5 @@ class Solution:
                 i += 1
             elif j == 0 or typed[j] != typed[j - 1]:
                 return False
-        
+            
         return i == len(name)
