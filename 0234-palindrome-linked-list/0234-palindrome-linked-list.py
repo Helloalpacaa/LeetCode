@@ -20,7 +20,7 @@ class Solution:
         
         slow = head
         fast = prev
-        while fast:
+        while fast and slow != fast:
             if slow.val != fast.val:
                 return False
             slow = slow.next
