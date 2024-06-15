@@ -3,6 +3,7 @@ class Solution:
         n = len(nums)
         prefixSum = [0] * (n + 1)
         for i in range(1, n + 1):
+            # 这里不能用prefixSum[i] += nums[i - 1], prefixSum[i]本身是0，+= nums[i - 1]只会得到nums[i - 1]
             prefixSum[i] = prefixSum[i - 1] + nums[i - 1]
         
         ans = float('inf')
