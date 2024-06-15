@@ -6,8 +6,7 @@ class Solution:
         for j in range(len(s)):
             if s[j] in last and i <= last[s[j]]:
                 i = last[s[j]] + 1
-                
-            print(i, j)
+
             ans = max(ans, j - i + 1) 
             last[s[j]] = j
         
