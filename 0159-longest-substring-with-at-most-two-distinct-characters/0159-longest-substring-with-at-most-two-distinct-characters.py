@@ -12,7 +12,6 @@ class Solution:
                 if hashmap[s[i]] == 0:
                     hashmap.pop(s[i])
                 i += 1
-            print(i)
                     
             ans = max(ans, j - i + 1)
         
