@@ -1,26 +1,27 @@
 class Solution:
     def longestSubarray(self, nums: List[int], limit: int) -> int:
-        minHeap = [] # store the tuple(value, index) into a minHeap
-        maxHeap = [] # store the tuple(value, index) into a maxHeap  
-
+        minQ = collections.deque() # anscending monotonic stack with the min value at the first index
+        maxQ = collections.deque() # descending monotonic stack with the max value at the first index
         i = 0
         ans = 0
+        
         for j in range(len(nums)):
-            heapq.heappush(minHeap, (nums[j], j))
-            heapq.heappush(maxHeap, (-nums[j], j))
+            while minQ and nums[j] < minQ[-1]:
+                minQ.pop()
+            while maxQ and nums[j] > maxQ[-1]:
+                maxQ.pop()
             
-            # compare max - min with limit
-            while -maxHeap[0][0] - minHeap[0][0] > limit:
-                # move i to the new start of a valid sliding window
-                i = min(minHeap[0][1], maxHeap[0][1]) + 1
-                
-                # pop all the elements before nums[i]
-                while minHeap[0][1] < i:
-                    heapq.heappop(minHeap)
-                while maxHeap[0][1] < i:
-                    heapq.heappop(maxHeap)
+            minQ.append(nums[j])
+            maxQ.append(nums[j])
+            
+            while maxQ[0] - minQ[0] > limit:
+                if minQ[0] == nums[i]:
+                    minQ.popleft()
+                if maxQ[0] == nums[i]:
+                    maxQ.popleft()
+                i += 1
             
             ans = max(ans, j - i + 1)
-        
+            
         return ans
         
