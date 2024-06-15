@@ -3,7 +3,7 @@ class Solution:
         n = len(nums)
         prefixSum = [0] * (n + 1)
         for i in range(1, n + 1):
-            prefixSum[i] = nums[i - 1] + prefixSum[i - 1]
+            prefixSum[i] = prefixSum[i - 1] + nums[i - 1]
         
         ans = float('inf')
         queue = deque()
@@ -11,7 +11,7 @@ class Solution:
             while queue and prefixSum[j] - prefixSum[queue[0]] >= k:
                 ans = min(ans, j - queue.popleft())
             
-            while queue and prefixSum[j] <= prefixSum[queue[-1]]:
+            while queue and prefixSum[j] < prefixSum[queue[-1]]:
                 queue.pop()
             
             queue.append(j)
