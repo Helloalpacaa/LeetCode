@@ -6,14 +6,17 @@ class Solution:
         ans = 0
         
         for j in range(len(nums)):
+            # maintain a ascending monotonic stack
             while minQ and nums[j] < minQ[-1]:
                 minQ.pop()
+            # maintain a descending monotonic stack
             while maxQ and nums[j] > maxQ[-1]:
                 maxQ.pop()
             
             minQ.append(nums[j])
             maxQ.append(nums[j])
             
+            # move i to a new start of valid window until pops the element causing the diff
             while maxQ[0] - minQ[0] > limit:
                 if minQ[0] == nums[i]:
                     minQ.popleft()
