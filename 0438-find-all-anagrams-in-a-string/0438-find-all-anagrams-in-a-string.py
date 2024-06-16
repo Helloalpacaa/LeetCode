@@ -12,8 +12,10 @@ class Solution:
                     del window[s[i - len(p)]]
                 else:
                     window[s[i - len(p)]] -= 1
-            
+                
             if window == counter:
                 ans.append(i - len(p) + 1)
         
         return ans
+            
+            
