@@ -12,10 +12,12 @@ class Solution:
                 k -= 1
             counter[s[j]] += 1
             
+            # k < 0 说明counter里的elements已经超过了k，需要从i开始移除
             while k < 0:
                 counter[s[i]] -= 1
                 if counter[s[i]] == 0:
-                    del counter[s[i]]
+                    #这里一定要删掉，不然之后再次遇到同一个character，会认为它还在window里，window里只存放当前valid的window的characters
+                    del counter[s[i]] 
                     k += 1
                 i += 1
             
