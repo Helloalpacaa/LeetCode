@@ -4,6 +4,7 @@ class Solution:
         ans = 0
         i = 0
         
+        # 这个解法最直观 不需要去更改k的值
         for j in range(len(s)):
             counter[s[j]] += 1
             
