@@ -1,7 +1,8 @@
 class Solution:
     def compress(self, chars: List[str]) -> int:
-        i = 0
         ans = 0
+        i = 0
+        
         while i < len(chars):
             currChar = chars[i]
             count = 0
@@ -16,7 +17,5 @@ class Solution:
                 for c in str(count):
                     chars[ans] = c
                     ans += 1
-        
+            
         return ans
-            
-            
