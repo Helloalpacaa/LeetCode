@@ -9,5 +9,5 @@ class Solution:
                 right = mid
             else:
                 left = mid + 1
-        
+                
         return arr[left: left + k]
