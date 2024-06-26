@@ -1,13 +1,16 @@
 class Solution:
     def corpFlightBookings(self, bookings: List[List[int]], n: int) -> List[int]:
-        answer = [0] * n
+        prefixSum = [0] * n
         
         for booking in bookings:
-            answer[booking[0] - 1] += booking[2]
-            if (booking[1] < n):
-                answer[booking[1]] -= booking[2]
+            prefixSum[booking[0] - 1] += booking[2]
+            if booking[1] < n:
+                prefixSum[booking[1]] -= booking[2]
         
-        for i in range(1, len(answer)):
-            answer[i] += answer[i - 1]
+        for i in range(1, n):
+            prefixSum[i] += prefixSum[i - 1]
         
-        return answer
+        return prefixSum
+            
+        
+            
