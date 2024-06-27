@@ -9,9 +9,9 @@ class Solution:
         start.sort()
         end.sort()
         
-        meetingRooms = 0
         j = 0
-        for i in range(len(intervals)):
+        meetingRooms = 0
+        for i in range(len(start)):
             if start[i] < end[j]:
                 meetingRooms += 1
             else:
