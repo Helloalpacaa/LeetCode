@@ -3,7 +3,6 @@ class Solution:
         numsSet = set(nums)
         
         longest = 0
-        length = 0
         for num in numsSet:
             if num - 1 in numsSet:
                 continue
