@@ -14,12 +14,12 @@ class Solution:
                 maxStack.pop()
             maxStack.append(nums[j])
             
-            while maxStack[0] - minStack[0] > limit:
+            if maxStack[0] - minStack[0] > limit:
                 if nums[i] == maxStack[0]:
                     maxStack.popleft()
                 if nums[i] == minStack[0]:
                     minStack.popleft()
-                i += 1
+                i += 1 # Let's consider the window up to the previous element (j-1), which was still valid
             
             ans = max(ans, j - i + 1)
         
