@@ -11,5 +11,5 @@ class Solution:
                 ans = min(ans, j - i + 1)
                 windowSum -= nums[i]
                 i += 1
-            
-        return 0 if ans == float('inf') else ans
+        
+        return ans if ans != float('inf') else 0
