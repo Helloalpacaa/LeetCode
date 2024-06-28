@@ -14,7 +14,7 @@ class Solution:
                 maxStack.pop()
             maxStack.append(nums[j])
             
-            if maxStack[0] - minStack[0] > limit:
+            while maxStack[0] - minStack[0] > limit:
                 if nums[i] == maxStack[0]:
                     maxStack.popleft()
                 if nums[i] == minStack[0]:
