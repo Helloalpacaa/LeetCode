@@ -3,26 +3,23 @@ class Solution:
         wordsCount = {}
         for word in words:
             wordsCount[word] = wordsCount.get(word, 0) + 1
-        n = len(words)
-        wordLen = len(words[0])
+        wordlen = len(words[0])
+        wordslen = len(words) * wordlen
         ans = []
         
-        for i in range(len(s) - wordLen * n + 1):
-            substring = s[i: i + wordLen * n]
-            if self.isConcat(substring, wordsCount, wordLen):
+        for i in range(len(s) - wordslen + 1):
+            if self.isConcat(s[i: i + wordslen], wordsCount, wordlen):
                 ans.append(i)
         
         return ans
         
         
-    def isConcat(self, s: str, wordsCount: Dict[str, int], wordLen) -> bool:
+    def isConcat(self, s: str, words: Dict[str, int], wordlen) -> bool:
         seen = {}
-        for i in range(0, len(s), wordLen):
-            word = s[i : i + wordLen]
-            seen[word] = seen.get(word, 0) + 1
-            if word not in wordsCount or seen[word] > wordsCount[word]:
+        for i in range(0, len(s), wordlen):
+            currWord = s[i: i + wordlen]
+            seen[currWord] = seen.get(currWord, 0) + 1
+            if currWord not in words or seen[currWord] > words[currWord]:
                 return False
-        
         return True
         
-                
