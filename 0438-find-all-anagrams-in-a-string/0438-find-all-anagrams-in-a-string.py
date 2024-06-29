@@ -1,23 +1,21 @@
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
-        counter = Counter(p)
-        match = 0
         ans = []
+        p_map = {}
+        window_map = {}
+        
+        for char in p:
+            p_map[char] = p_map.get(char, 0) + 1
         
         for i in range(len(s)):
-            if s[i] in counter:
-                counter[s[i]] -= 1
-                if counter[s[i]] == 0:
-                    match += 1
+            window_map[s[i]] = window_map.get(s[i], 0) + 1
             
-            if i >= len(p) and s[i - len(p)] in counter:
-                if counter[s[i - len(p)]] == 0:
-                    match -= 1
-                counter[s[i - len(p)]] += 1
+            if i >= len(p):
+                window_map[s[i - len(p)]] -= 1
+                if window_map[s[i - len(p)]] == 0:
+                    del window_map[s[i - len(p)]]
             
-            if match == len(counter):
+            if window_map == p_map:
                 ans.append(i - len(p) + 1)
         
         return ans
-            
-            
