@@ -1,17 +1,17 @@
 class Solution:
     def subarraysWithKDistinct(self, nums: List[int], k: int) -> int:
-        def atMost(k):
+        def atMost(k) -> int:
             ans = 0
-            counter = Counter()
             i = 0
+            diffInt = Counter()
             
             for j in range(len(nums)):
-                counter[nums[j]] += 1
+                diffInt[nums[j]] += 1
                 
-                while len(counter) > k:
-                    counter[nums[i]] -= 1
-                    if counter[nums[i]] == 0:
-                        del counter[nums[i]]
+                while len(diffInt) > k:
+                    diffInt[nums[i]] -= 1
+                    if diffInt[nums[i]] == 0:
+                        del diffInt[nums[i]]
                     i += 1
                 
                 ans += j - i + 1
