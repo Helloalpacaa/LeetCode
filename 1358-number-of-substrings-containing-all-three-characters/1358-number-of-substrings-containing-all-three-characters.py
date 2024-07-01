@@ -10,8 +10,7 @@ class Solution:
             while all(counter.values()):
                 counter[s[i]] -= 1
                 i += 1
-            
+                
             ans += i
         
         return ans
-                
