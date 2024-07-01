@@ -1,15 +1,17 @@
 class Solution:
     def balancedString(self, s: str) -> int:
-        counter = Counter(s)
         i = 0
         ans = float('inf')
+        counter = Counter(s)
+        n = len(s)
         
-        for j in range(len(s)):
+        for j in range(n):
             counter[s[j]] -= 1
             
-            while i < len(s) and all(len(s) / 4 >= counter[c] for c in "QWER"):
+            while i < n and all(n / 4 >= counter[c] for c in "QWER"):
                 ans = min(ans, j - i + 1)
                 counter[s[i]] += 1
                 i += 1
-        
+            
         return ans
+                
