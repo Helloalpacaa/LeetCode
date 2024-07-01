@@ -1,34 +1,26 @@
 class Solution:
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
-        word_len = len(words[0])
-        ori_word_dict = defaultdict(int)
-		
+        counter = {}
         for word in words:
-            ori_word_dict[word] += 1
+            counter[word] = counter.get(word, 0) + 1
+        wordLen = len(words[0])
+        wordsLen = wordLen * len(words)
+        ans = []
         
-        all_word_len = len(words) * word_len
-        result = []
-        for i in range(word_len):
-            queue = deque()
-            word_dict = ori_word_dict.copy()
-            for j in range(i, len(s) - word_len + 1, word_len):
-                word = s[j:j + word_len]
-                if word_dict.get(word, 0) != 0:
-                    word_dict[word] -= 1
-                    queue.append(word)
-                    if sum(word_dict.values()) == 0:
-                        result.append(j - all_word_len + word_len)
-                        last_element = queue.popleft()
-                        word_dict[last_element] = word_dict.get(last_element, 0) + 1
-                else:
-                    while len(queue):
-                        last_element = queue.popleft()
-                        if last_element == word:
-                            queue.append(word)
-                            break
-                        else:
-                            word_dict[last_element] = word_dict.get(last_element, 0) + 1
-                            if word_dict[last_element] > ori_word_dict[last_element]:
-                                word_dict = ori_word_dict.copy()
-
-        return result
+        for i in range(len(s) - wordsLen + 1):
+            if self.isConcat(s[i: i + wordsLen], counter, wordLen):
+                ans.append(i)
+        return ans
+        
+        
+    
+    def isConcat(self, s: str, words: Dict[str, int], wordLen) -> bool:
+        seen = {}
+        for i in range(0, len(s), wordLen):
+            currWord = s[i: i + wordLen]
+            seen[currWord] = seen.get(currWord, 0) + 1
+            if currWord not in words or seen[currWord] > words[currWord]:
+                return False
+        return True
+        
+        
