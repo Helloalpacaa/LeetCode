@@ -46,7 +46,7 @@ class MyLinkedList:
         
         dummy = Node(0, self.head)
         curr = dummy
-        for i in range(0, index, 1):
+        for i in range(index):
             curr = curr.next
         curr.next = curr.next.next
         self.head = dummy.next
