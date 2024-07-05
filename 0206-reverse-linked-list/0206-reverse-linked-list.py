@@ -11,4 +11,3 @@ class Solution:
             curr.next, prev, curr = prev, curr, curr.next
         
         return prev
-            
