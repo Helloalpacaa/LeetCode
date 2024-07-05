@@ -7,7 +7,10 @@ class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         minHeap = []
         for i, listHead in enumerate(lists):
-            if listHead:
+            if listHead: # 这个条件必须加，因为可能有empty的list
+                # listHead.val is used for comparison
+                # i is used as a tie-breaker if two nodes have the same value
+                # listHead is the actual node
                 heapq.heappush(minHeap, (listHead.val, i, listHead))
         
         dummy = ListNode(0)
