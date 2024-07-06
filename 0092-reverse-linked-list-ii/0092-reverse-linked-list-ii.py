@@ -4,26 +4,22 @@
 #         self.val = val
 #         self.next = next
 
-successor = None
-
 class Solution:
     def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
-        if left == 1:
-            return self.reverseN(head, right)
+        dummy = ListNode(0, head)
+        p = dummy
         
-        head.next = self.reverseBetween(head.next, left - 1, right - 1)
-        return head
-    
-    def reverseN(self, head: Optional[ListNode], n) -> Optional[ListNode]:
-        global successor
+        for _ in range(left - 1):
+            p = p.next
+        tail = p.next
         
-        if n == 1:
-            successor = head.next
-            return head
+        for _ in range(right - left):
+            tmp = p.next
+            p.next = tail.next
+            tail.next = tail.next.next
+            p.next.next = tmp
         
-        last = self.reverseN(head.next, n - 1)
-        head.next.next = head
-        head.next = successor
-        return last
+        return dummy.next
+            
     
     
