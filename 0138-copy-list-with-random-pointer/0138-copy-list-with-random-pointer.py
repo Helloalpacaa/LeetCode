@@ -8,20 +8,21 @@ class Node:
 """
 
 class Solution:
-    def __init__(self):
-        self.visited = {}
     
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        if not head:
-            return None
+        hm = {}
+        curr = head
         
-        if head in self.visited:
-            return self.visited[head]
+        while curr:
+            copy = Node(curr.val, None, None)
+            hm[curr] = copy
+            curr = curr.next
         
-        node = Node(head.val, None, None)
-        self.visited[head] = node
+        curr = head
+        while curr:
+            hm[curr].next = hm[curr.next] if curr.next else None
+            hm[curr].random = hm[curr.random] if curr.random else None
+            curr = curr.next
         
-        node.next = self.copyRandomList(head.next)
-        node.random = self.copyRandomList(head.random)
-        
-        return node
+        return hm[head] if head else None
+            
