@@ -1,7 +1,9 @@
 class Node:
-    def __init__(self, val = 0, next = None):
+    
+    def __init__(self, val: 0, next: None):
         self.val = val
         self.next = next
+
 
 class MyLinkedList:
 
@@ -14,31 +16,36 @@ class MyLinkedList:
             return -1
         
         curr = self.head
-        for i in range(index):
+        for _ in range(index):
             curr = curr.next
+        
         return curr.val
- 
+
     def addAtHead(self, val: int) -> None:
-        self.addAtIndex(0, val)
+        newHead = Node(val, None)
+        newHead.next = self.head
+        self.head = newHead
+        self.size += 1
 
     def addAtTail(self, val: int) -> None:
         self.addAtIndex(self.size, val)
 
     def addAtIndex(self, index: int, val: int) -> None:
-        if index < 0 or index > self.size:
-            return
-        
-        newNode = Node(val)
         if index == 0:
-            newNode.next = self.head
-            self.head = newNode
+            self.addAtHead(val)
+        elif index > self.size:
+            return
         else:
-            curr = self.head
-            for i in range(index - 1):
+            newNode = Node(val, None)
+            dummy = Node(0, self.head)
+            curr = dummy
+
+            for _ in range(index):
                 curr = curr.next
+
             newNode.next = curr.next
             curr.next = newNode
-        self.size += 1
+            self.size += 1
 
     def deleteAtIndex(self, index: int) -> None:
         if index < 0 or index >= self.size:
@@ -46,11 +53,14 @@ class MyLinkedList:
         
         dummy = Node(0, self.head)
         curr = dummy
-        for i in range(index):
+        
+        for _ in range(index):
             curr = curr.next
+            
         curr.next = curr.next.next
-        self.head = dummy.next
+        self.head = dummy.next # 这一条很重要，如果index为1的话就要更新新的head
         self.size -= 1
+        
 
 
 # Your MyLinkedList object will be instantiated and called as such:
