@@ -4,14 +4,14 @@ class Solution:
         j = len(s) - 1
         while i < j:
             if s[i] != s[j]:
-                return self.isValid(s, i + 1, j) or self.isValid(s, i, j - 1)
+                return self.isPalindrome(s, i + 1, j) or self.isPalindrome(s, i, j - 1)
             i += 1
             j -= 1
         
         return True
     
     
-    def isValid(self, s: str, i: int, j: int) -> bool:
+    def isPalindrome(self, s: str, i: int, j: int) -> bool:
         while i < j:
             if s[i] != s[j]:
                 return False
