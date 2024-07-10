@@ -1,6 +1,5 @@
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        ans = []
         i = 0
         j = len(numbers) - 1
         
@@ -11,7 +10,5 @@ class Solution:
             elif twoSum > target:
                 j -= 1
             else:
-                ans.append(i + 1)
-                ans.append(j + 1)
-                return ans
+                return [i + 1, j + 1]
                 
