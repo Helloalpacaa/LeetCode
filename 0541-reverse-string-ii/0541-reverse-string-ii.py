@@ -1,11 +1,9 @@
 class Solution:
     def reverseStr(self, s: str, k: int) -> str:
-        i = 0
         arr = list(s)
-        while i < len(s):
-            self.reverse(arr, i, min(i + k - 1, len(s) - 1))
-            i += k * 2
-        
+        for i in range(0, len(s), k * 2):
+            self.reverse(arr, i, i + min(k - 1, len(s) - i - 1))
+            
         return "".join(arr)
     
     def reverse(self, arr: list, i: int, j: int) -> None:
@@ -13,5 +11,4 @@ class Solution:
             arr[i], arr[j] = arr[j], arr[i]
             i += 1
             j -= 1
-            
             
