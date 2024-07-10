@@ -5,6 +5,8 @@ class Solution(object):
         :rtype: str
         """
         s = s.strip().split()
+        # s is no longer a string, but a list of strings. Each word is an element in this list.
+        
         i = 0
         j = len(s) - 1
         
