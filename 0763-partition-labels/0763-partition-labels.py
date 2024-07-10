@@ -4,18 +4,17 @@ class Solution(object):
         :type s: str
         :rtype: List[int]
         """
-        hm = {}
+        edges = {}
         for i in range(len(s)):
-            hm[s[i]] = i
+            edges[s[i]] = i
         
+        left = 0
+        right = 0
         ans = []
-        i = 0
-        while i < len(s):
-            left = i
-            j = hm[s[i]]
-            while i <= j:
-                j = max(j, hm[s[i]])
-                i += 1
-            ans.append(i - left)
+        for i in range(len(s)):
+            right = max(right, edges[s[i]])
+            if i == right:
+                ans.append(right - left + 1)
+                left = i + 1
         
         return ans
