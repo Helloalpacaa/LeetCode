@@ -1,17 +1,21 @@
-class Solution:
-    def partitionLabels(self, s: str) -> List[int]:
-        edge = {}
-        for index, value in enumerate(s):
-            edge[value] = index
+class Solution(object):
+    def partitionLabels(self, s):
+        """
+        :type s: str
+        :rtype: List[int]
+        """
+        hm = {}
+        for i in range(len(s)):
+            hm[s[i]] = i
         
         ans = []
-        left = 0
-        right = 0
-        for i in range(len(s)):
-            right = max(right, edge[s[i]])
-            if i == right:
-                ans.append(right - left + 1)
-                left = right + 1
+        i = 0
+        while i < len(s):
+            left = i
+            j = hm[s[i]]
+            while i <= j:
+                j = max(j, hm[s[i]])
+                i += 1
+            ans.append(i - left)
         
         return ans
-            
