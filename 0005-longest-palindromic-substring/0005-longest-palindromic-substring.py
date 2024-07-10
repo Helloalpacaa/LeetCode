@@ -1,20 +1,21 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        longestPalindrome = ""
+        maxLength = 0
+        ans = ""
         for i in range(len(s)):
-            s1 = self.palindrome(s, i, i)
-            s2 = self.palindrome(s, i, i + 1)
-            longestPalindrome = s1 if len(s1) > len(longestPalindrome) else longestPalindrome
-            longestPalindrome = s2 if len(s2) > len(longestPalindrome) else longestPalindrome
+            if len(self.expand(s, i, i)) > maxLength:
+                maxLength = len(self.expand(s, i, i))
+                ans = self.expand(s, i, i)
+            if i + 1 < len(s) and len(self.expand(s, i, i + 1)) > maxLength:
+                maxLength = len(self.expand(s, i, i + 1))
+                ans = self.expand(s, i, i + 1)
         
-        return longestPalindrome
-        
-        
-    def palindrome(self, s: str, i: int, j: int) -> str:
+        return ans
+    
+    def expand(self, s: str, i: int, j: int) -> str:
         while i >= 0 and j < len(s) and s[i] == s[j]:
             i -= 1
             j += 1
-        
-        return s[i + 1: j]
             
+        return s[i + 1: j]
             
