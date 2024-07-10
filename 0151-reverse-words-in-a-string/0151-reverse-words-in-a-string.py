@@ -1,7 +1,10 @@
-class Solution:
-    def reverseWords(self, s: str) -> str:
-        s = s.strip()
-        s = s.split()
+class Solution(object):
+    def reverseWords(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        s = s.strip().split()
         i = 0
         j = len(s) - 1
         
