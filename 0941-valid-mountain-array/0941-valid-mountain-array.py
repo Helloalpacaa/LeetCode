@@ -1,12 +1,21 @@
-class Solution:
-    def validMountainArray(self, arr: List[int]) -> bool:
-        left = 0
-        right = len(arr) - 1
+class Solution(object):
+    def validMountainArray(self, arr):
+        """
+        :type arr: List[int]
+        :rtype: bool
+        """
+        i = 0
+        while i < len(arr):
+            if i + 1 < len(arr) and arr[i + 1] > arr[i]:
+                i += 1
+            else:
+                break
         
-        while left + 1 < len(arr) and arr[left + 1] > arr[left]:
-            left += 1
+        j = len(arr) - 1
+        while j >= 0:
+            if j - 1 >= 0 and arr[j - 1] > arr[j]:
+                j -= 1
+            else:
+                break
         
-        while right - 1 >= 0 and arr[right - 1] > arr[right]:
-            right -= 1
-        
-        return left == right and left != 0 and right != len(arr) - 1
+        return False if i == 0 or j == len(arr) - 1 or i != j else True
