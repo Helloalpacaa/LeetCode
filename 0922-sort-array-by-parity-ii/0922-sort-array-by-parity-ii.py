@@ -1,5 +1,9 @@
-class Solution:
-    def sortArrayByParityII(self, nums: List[int]) -> List[int]:
+class Solution(object):
+    def sortArrayByParityII(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
         even = 0
         odd = 1
         
@@ -14,3 +18,4 @@ class Solution:
                 odd += 2
         
         return nums
+        
