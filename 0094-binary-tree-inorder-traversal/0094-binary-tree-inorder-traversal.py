@@ -10,7 +10,7 @@ class Solution:
         stack = []
         curr = root
 
-        while stack or curr:
+        while curr or stack:
             if curr:
                 stack.append(curr)
                 curr = curr.left
@@ -18,5 +18,6 @@ class Solution:
                 curr = stack.pop()
                 ans.append(curr.val)
                 curr = curr.right
+        
         return ans
     
