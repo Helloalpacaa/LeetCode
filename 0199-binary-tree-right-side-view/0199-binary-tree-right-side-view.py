@@ -7,15 +7,19 @@
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         ans = []
-        self.traversal(root, ans, 0)
+        queue = deque()
+        if root:
+            queue.append(root)
+        
+        while queue:
+            level_size = len(queue)
+            ans.append(queue[0].val)
+            while level_size > 0:
+                tmp = queue.popleft()
+                if tmp.right:
+                    queue.append(tmp.right)
+                if tmp.left:
+                    queue.append(tmp.left)
+                level_size -= 1
+        
         return ans
-    
-    def traversal(self, node: Optional[TreeNode], ans: List[int], height: int) -> None:
-        if node is None:
-            return
-        
-        if height >= len(ans):
-            ans.append(node.val)
-        
-        self.traversal(node.right, ans, height + 1)
-        self.traversal(node.left, ans, height + 1)
