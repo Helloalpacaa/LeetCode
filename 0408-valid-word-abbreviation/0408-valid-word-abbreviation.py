@@ -1,14 +1,20 @@
-class Solution:
-    def validWordAbbreviation(self, word: str, abbr: str) -> bool:
+class Solution(object):
+    def validWordAbbreviation(self, word, abbr):
+        """
+        :type word: str
+        :type abbr: str
+        :rtype: bool
+        """
+        
         i = 0
         j = 0
+        
         while i < len(word) and j < len(abbr):
-            if word[i] != abbr[j]:
+            if word[i] != abbr[j]:             
                 left = j
                 while j < len(abbr) and abbr[j].isdigit():
                     j += 1
                 abbreviation = abbr[left: j]
-                
                 if not abbreviation or abbreviation[0] == '0':
                     return False
                 
