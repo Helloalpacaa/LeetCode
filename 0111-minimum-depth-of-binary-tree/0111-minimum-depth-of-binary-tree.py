@@ -6,17 +6,14 @@
 #         self.right = right
 class Solution:
     def minDepth(self, root: Optional[TreeNode]) -> int:
-        self.minDepth = float('inf')
-        self.traversal(root, 0)
+        if root is None:
+            return 0
         
-        return 0 if self.minDepth == float('inf') else self.minDepth
-    
-    def traversal(self, node: Optional[TreeNode], height: int) -> None:
-        if node is None:
-            return
-        
-        if node.left is None and node.right is None:
-            self.minDepth = min(self.minDepth, height + 1)
-        
-        self.traversal(node.left, height + 1)
-        self.traversal(node.right, height + 1)
+        if root.left and root.right:
+            return min(self.minDepth(root.left) + 1, self.minDepth(root.right) + 1)
+        elif root.left:
+            return self.minDepth(root.left) + 1
+        elif root.right:
+            return self.minDepth(root.right) + 1
+        else:
+            return 1
