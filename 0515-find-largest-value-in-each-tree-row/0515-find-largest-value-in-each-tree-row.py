@@ -13,22 +13,18 @@ class Solution:
             queue.append(root)
         
         while queue:
-            node = queue.popleft()
-            ans.append(node.val)
             size = len(queue)
+            maxValue = -float('inf')
             while size > 0:
                 tmp = queue.popleft()
-                if tmp.val > ans[len(ans) - 1]:
-                    ans[len(ans) - 1] = tmp.val
+                if tmp.val > maxValue:
+                    maxValue = tmp.val
                 
                 if tmp.left:
                     queue.append(tmp.left)
                 if tmp.right:
                     queue.append(tmp.right)
                 size -= 1
-            if node.left:
-                queue.append(node.left)
-            if node.right:
-                queue.append(node.right)
+            ans.append(maxValue)
         
         return ans
