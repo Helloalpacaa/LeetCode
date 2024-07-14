@@ -7,17 +7,28 @@
 class Solution:
     def largestValues(self, root: Optional[TreeNode]) -> List[int]:
         ans = []
-        self.traversal(root, ans, 0)
-        return ans
-    
-    def traversal(self, node: Optional[TreeNode], ans: List[int], height: int) -> None:
-        if node is None:
-            return
+        queue = deque()
         
-        if height >= len(ans):
+        if root:
+            queue.append(root)
+        
+        while queue:
+            node = queue.popleft()
             ans.append(node.val)
-        else:
-            if node.val > ans[height]:
-                ans[height] = node.val
-        self.traversal(node.left, ans, height + 1)
-        self.traversal(node.right, ans, height + 1)
+            size = len(queue)
+            while size > 0:
+                tmp = queue.popleft()
+                if tmp.val > ans[len(ans) - 1]:
+                    ans[len(ans) - 1] = tmp.val
+                
+                if tmp.left:
+                    queue.append(tmp.left)
+                if tmp.right:
+                    queue.append(tmp.right)
+                size -= 1
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        
+        return ans
