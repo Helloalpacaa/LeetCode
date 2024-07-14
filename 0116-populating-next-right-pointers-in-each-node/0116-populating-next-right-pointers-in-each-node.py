@@ -10,20 +10,18 @@ class Node:
 
 class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
-        arr = []
-        self.traversal(root, 0, arr)
+        if root is None:
+            return None
+        
+        if root.left:
+            root.left.next = root.right
+            
+        if root.next and root.right:
+            root.right.next = root.next.left
+        
+        self.connect(root.left)
+        self.connect(root.right)
+        
         return root
-    
-    def traversal(self, node: 'Optional[Node]', height: int, arr: List[List[int]]) -> None:
-        if node is None:
-            return
-        
-        if height >= len(arr):
-            arr.append([])
-        else:
-            arr[height][len(arr[height]) - 1].next = node
-        
-        arr[height].append(node)
-        self.traversal(node.left, height + 1, arr)
-        self.traversal(node.right, height + 1, arr)
+            
         
