@@ -10,20 +10,20 @@ class Node:
 
 class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
-        queue = deque()
-        if root:
-            queue.append(root)
-            
-        while queue:
-            size = len(queue)
-            while size > 0:
-                node = queue.popleft()
-                size -= 1
-                node.next = queue[0] if size > 0 else None
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-        
+        arr = []
+        self.traversal(root, 0, arr)
         return root
-                
+    
+    def traversal(self, node: 'Optional[Node]', height: int, arr: List[List[int]]) -> None:
+        if node is None:
+            return
+        
+        if height >= len(arr):
+            arr.append([])
+        else:
+            arr[height][len(arr[height]) - 1].next = node
+        
+        arr[height].append(node)
+        self.traversal(node.left, height + 1, arr)
+        self.traversal(node.right, height + 1, arr)
+        
