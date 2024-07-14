@@ -7,24 +7,25 @@
 class Solution:
     def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
         ans = []
-        queue = deque()
-        
-        if root:
-            queue.append(root)
-            
-        while queue:
-            size = len(queue)
-            total = 0
-            nums = size
-            while size > 0:
-                node = queue.popleft()
-                total += node.val
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-                size -= 1
-        
-            ans.append(total / nums)
+        total = []
+        count = []
+        self.traversal(root, 0, total, count)
+        for i in range(len(total)):
+            ans.append(total[i] / count[i])
         
         return ans
+    
+    def traversal(self, node: Optional[TreeNode], height: int, total: List[int], count: List[int]) -> None:
+        if node is None:
+            return
+        
+        if len(total) <= height:
+            total.append(0)
+            count.append(0)
+            
+        total[height] += node.val
+        count[height] += 1
+        
+        self.traversal(node.left, height + 1, total, count)
+        self.traversal(node.right, height + 1, total, count)
+        
