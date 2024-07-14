@@ -17,7 +17,6 @@ class Solution:
         if node is None:
             return
         
-        
         for child in node.children:
             self.traversal(child, ans)
             ans.append(child.val)
