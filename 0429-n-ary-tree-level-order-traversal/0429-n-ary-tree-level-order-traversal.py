@@ -9,20 +9,17 @@ class Node:
 class Solution:
     def levelOrder(self, root: 'Node') -> List[List[int]]:
         ans = []
-        queue = deque()
-        
-        if root:
-            queue.append(root)
-            
-        while queue:
-            size = len(queue)
-            ans.append([])
-            while size > 0:
-                node = queue.popleft()
-                ans[len(ans) - 1].append(node.val)
-                for child in node.children:
-                    queue.append(child)
-                size -= 1
-        
+        self.traversal(root, 0, ans)
         return ans
+        
+    def traversal(self, node: 'Node', height: int, ans: List[List[int]]) -> None:
+        if node is None:
+            return
+        
+        if height >= len(ans):
+            ans.append([])
+        
+        ans[height].append(node.val)
+        for child in node.children:
+            self.traversal(child, height + 1, ans)
             
