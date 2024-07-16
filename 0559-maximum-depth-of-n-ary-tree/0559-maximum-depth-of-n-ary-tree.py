@@ -8,15 +8,12 @@ class Node:
 
 class Solution:
     def maxDepth(self, root: 'Node') -> int:
-        self.maxDepth = 0
-        self.traversal(root, 0)
+        if root is None:
+            return 0
         
-        return self.maxDepth
-    
-    def traversal(self, node: 'Node', height: int) -> None:
-        if node is None:
-            return
+        depth = 0
         
-        self.maxDepth = max(self.maxDepth, height + 1)
-        for child in node.children:
-            self.traversal(child, height + 1)
+        for child in root.children:
+            depth = max(depth, self.maxDepth(child))
+        
+        return depth + 1
