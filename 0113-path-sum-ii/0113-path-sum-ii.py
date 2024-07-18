@@ -20,18 +20,10 @@ class Solution:
             return
         
         if node.left:
-            total += node.left.val
-            path.append(node.left.val)
-            self.traversal(node.left, total, targetSum, path)
-            total -= node.left.val
-            path.pop()
+            self.traversal(node.left, total + node.left.val, targetSum, path + [node.left.val])
         
         if node.right:
-            total += node.right.val
-            path.append(node.right.val)
-            self.traversal(node.right, total, targetSum, path)
-            total -= node.right.val
-            path.pop()
+            self.traversal(node.right, total + node.right.val, targetSum, path + [node.right.val])
         
             
         
