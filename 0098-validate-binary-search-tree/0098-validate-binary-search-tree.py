@@ -13,6 +13,7 @@ class Solution:
             if node.val <= floor or node.val >= ceiling:
                 return False
             
+            # in the left branch, root is the new ceiling; contrarily root is the new floor in right branch
             return isValid(node.left, floor, node.val) and isValid(node.right, node.val, ceiling)
         
         return isValid(root.left, -float(inf), root.val) and isValid(root.right, root.val, float(inf))
