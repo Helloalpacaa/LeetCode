@@ -22,6 +22,7 @@ class Solution:
                 return root.left
             # 3. Have both left and right child
             else:
+                # 去找右边的最小值，用最小值作为root的值，再去删掉这个最小值的node
                 successor = root.right
                 while successor.left:
                     successor = successor.left
