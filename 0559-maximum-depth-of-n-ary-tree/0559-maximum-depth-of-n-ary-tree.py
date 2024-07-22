@@ -12,7 +12,7 @@ class Solution:
             return 0
         
         depth = 0
-        
+
         for child in root.children:
             depth = max(depth, self.maxDepth(child))
         
