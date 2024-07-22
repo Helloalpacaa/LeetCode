@@ -6,14 +6,19 @@
 #         self.right = right
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        def isValid(node: Optional[TreeNode], floor, ceiling) -> bool:
+        def inorder(node: Optional[TreeNode]) -> bool:
             if node is None:
                 return True
             
-            if node.val <= floor or node.val >= ceiling:
+            if not inorder(node.left):
                 return False
             
-            # in the left branch, root is the new ceiling; contrarily root is the new floor in right branch
-            return isValid(node.left, floor, node.val) and isValid(node.right, node.val, ceiling)
+            if self.pre is not None and node.val <= self.pre.val:
+                return False
+            
+            self.pre = node
+
+            return inorder(node.right)
         
-        return isValid(root.left, -float(inf), root.val) and isValid(root.right, root.val, float(inf))
+        self.pre = None
+        return inorder(root)
