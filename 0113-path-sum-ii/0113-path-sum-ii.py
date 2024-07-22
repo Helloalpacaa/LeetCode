@@ -6,24 +6,19 @@
 #         self.right = right
 class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
-        self.paths = []
-        if root is None:
-            return self.paths
-        
-        self.traversal(root, root.val, targetSum, [root.val])
-        
-        return self.paths
-    
-    def traversal(self, node: Optional[TreeNode], total: int, targetSum: int, path: List[int]) -> None:
-        if total == targetSum and node.left is None and node.right is None:
-            self.paths.append(path[:]) # if you append path, then you are append the reference of the path, and the path is changing all the time, so you need to append a copy of the path
-            return
-        
-        if node.left:
-            self.traversal(node.left, total + node.left.val, targetSum, path + [node.left.val])
-        
-        if node.right:
-            self.traversal(node.right, total + node.right.val, targetSum, path + [node.right.val])
-        
+        def backtracking(node: Optional[TreeNode], path: List[int], total) -> None:
+            if total == targetSum:
+                self.ans.append(path[:])
+                return
             
+            if node.left:
+                backtracking(node.left, path + [node.left.val], total + node.left.val)
+            if node.right:
+                backtracking(node.right, path + [node.right.val], total + node.right.val)
         
+        self.ans = []
+        if root is None:
+            return []
+        backtracking(root, [root.val], root.val)
+        return self.ans
+            
