@@ -10,9 +10,8 @@ class Solution:
             if node is None:
                 return val
             
-            val =  traversal(node.right, val)
+            val = traversal(node.right, val)
             node.val += val
-            
             return traversal(node.left, node.val)
         
         traversal(root, 0)
