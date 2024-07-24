@@ -7,43 +7,35 @@
 
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
-        # 建一个hashmap，找到从root到target的沿路的node到target的距离，例子一的hashmap里就只会有3和5
-        def find(node: TreeNode) -> int:
-            if node is None:
-                return -1
-
-            if node == target:
-                self.hm[node] = 0
-                return 0
-            
-            left = find(node.left)
-            if left >= 0:
-                self.hm[node] = left + 1
-                return left + 1
-            
-            right = find(node.right)
-            if right >= 0:
-                self.hm[node] = right + 1
-                return right + 1
-            
-            return -1
-
-        def dfs(node: TreeNode, length: int) -> None:
-            if node is None:
+        # 建一个graph, 连接每个node和它的邻居，比如node1：3,0,8
+        def buildGraph(child: TreeNode, parent: TreeNode) -> None:
+            if not child:
                 return
 
-            if node in self.hm:
-                length = self.hm[node]
+            if parent:
+                self.graph[child].append(parent)
+                self.graph[parent].append(child)
             
-            if length == k:
-                self.ans.append(node.val)
+            buildGraph(child.left, child)
+            buildGraph(child.right, child)
+
+        self.graph = defaultdict(list)
+        buildGraph(root, None)
+
+        queue = deque([(target, 0)])
+        visited = set([target])
+        result = []
+
+        while queue:
+            node, distance = queue.popleft()
+
+            if distance == k:
+                result.append(node.val)
             
-            dfs(node.left, length + 1)
-            dfs(node.right, length + 1)
+            for neighbor in self.graph[node]:
+                if neighbor not in visited and distance < k:
+                    visited.add(neighbor)
+                    queue.append((neighbor, distance + 1))
+        
+        return result
 
-        self.hm = {}
-        find(root)
-        self.ans = []
-        dfs(root, self.hm[root])
-
-        return self.ans
