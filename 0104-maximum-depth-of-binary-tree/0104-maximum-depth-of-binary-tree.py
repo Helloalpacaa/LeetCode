@@ -18,8 +18,6 @@ class Solution:
 
             traversal(node.left, depth)
             traversal(node.right, depth)
-
-            #depth -= 1
         
         traversal(root, 0)
         return self.maxDepth
