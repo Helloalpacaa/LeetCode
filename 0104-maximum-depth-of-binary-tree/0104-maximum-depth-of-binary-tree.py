@@ -13,11 +13,13 @@ class Solution:
                 return
             
             depth += 1
-            self.maxDepth = max(self.maxDepth, depth)
+            if node.left is None and node.right is None:
+                self.maxDepth = max(self.maxDepth, depth)
+
             traversal(node.left, depth)
             traversal(node.right, depth)
 
-            depth -= 1
+            #depth -= 1
         
         traversal(root, 0)
         return self.maxDepth
