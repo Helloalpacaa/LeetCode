@@ -5,17 +5,19 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         self.maxDepth = 0
-        self.traversal(root, 0)
+
+        def traversal(node: Optional[TreeNode], depth: int) -> None:
+            if node is None:
+                return
+            
+            depth += 1
+            self.maxDepth = max(self.maxDepth, depth)
+            traversal(node.left, depth)
+            traversal(node.right, depth)
+
+            depth -= 1
         
+        traversal(root, 0)
         return self.maxDepth
-    
-    def traversal(self, node: Optional[TreeNode], height: int) -> None:
-        if node is None:
-            return
-        
-        self.maxDepth = max(self.maxDepth, height + 1)
-        self.traversal(node.left,height + 1)
-        self.traversal(node.right, height + 1)
