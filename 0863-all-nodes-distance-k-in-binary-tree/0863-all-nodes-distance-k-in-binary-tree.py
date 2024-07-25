@@ -7,35 +7,43 @@
 
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
-        # 建一个graph, 连接每个node和它的邻居，比如node1：3,0,8
-        def buildGraph(child: TreeNode, parent: TreeNode) -> None:
-            if not child:
-                return
+        self.hm = {}
+        self.ans = []
 
-            if parent:
-                self.graph[child].append(parent)
-                self.graph[parent].append(child)
+        def build(node: TreeNode) -> int:
+            if node is None:
+                return -1
             
-            buildGraph(child.left, child)
-            buildGraph(child.right, child)
-
-        self.graph = defaultdict(list)
-        buildGraph(root, None)
-
-        queue = deque([(target, 0)])
-        visited = set([target])
-        result = []
-
-        while queue:
-            node, distance = queue.popleft()
-
-            if distance == k:
-                result.append(node.val)
+            if node == target:
+                self.hm[node] = 0
+                return 0
             
-            for neighbor in self.graph[node]:
-                if neighbor not in visited and distance < k:
-                    visited.add(neighbor)
-                    queue.append((neighbor, distance + 1))
+            left = build(node.left)
+            if left >= 0:
+                self.hm[node] = left + 1
+                return left + 1
+            
+            right = build(node.right)
+            if right >= 0:
+                self.hm[node] = right + 1
+                return right + 1
+            
+            return -1
         
-        return result
+        def dfs(node: TreeNode, length: int) -> None:
+            if node is None:
+                return
+            
+            if node in self.hm:
+                length = self.hm[node]
 
+            if length == k:
+                self.ans.append(node.val)
+            
+            dfs(node.left, length + 1)
+            dfs(node.right, length + 1)
+        
+        build(root)
+        dfs(root, self.hm[root])
+        return self.ans
+                
