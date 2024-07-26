@@ -9,6 +9,7 @@ class Solution:
         if not root:
             return None
         
+        # 先check当前node是否是leaf
         if not root.left and not root.right:
             return root if root.val >= limit else None
         
