@@ -1,24 +1,25 @@
 class Solution:
     def treeDiameter(self, edges: List[List[int]]) -> int:
         graph = defaultdict(list)
-        for edge in edges:
-            graph[edge[0]].append(edge[1])
-            graph[edge[1]].append(edge[0])
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+        
+        def dfs(parent: int, child: int) -> Tuple[int, int]:
+            maxDepth1, maxDepth2 = 0, 0
+
+            for nextNode in graph[child]:
+                if nextNode != parent:
+                    depth = dfs(child, nextNode)[0]
+                    if depth > maxDepth1:
+                        maxDepth1, maxDepth2 = depth, maxDepth1
+                    elif depth > maxDepth2:
+                        maxDepth2 = depth
+                    self.diameter = max(self.diameter, maxDepth1 + maxDepth2)
+            
+            return (maxDepth1 + 1, maxDepth2 + 1)
         
         self.diameter = 0
-        
-        def traversal(parent: Optional[TreeNode], child: Optional[TreeNode]) -> int:
-            firstLongest, secondLongest = 0, 0
-            for neighbor in graph[child]:
-                if neighbor != parent:
-                    length = traversal(child, neighbor)
-                    if length > firstLongest:
-                        firstLongest, secondLongest = length, firstLongest
-                    elif length > secondLongest:
-                        secondLongest = length
-                    self.diameter = max(self.diameter, firstLongest + secondLongest)
-            
-            return firstLongest + 1
-        
-        traversal(None, 0)
+        dfs(-1, 0)
         return self.diameter
+        
