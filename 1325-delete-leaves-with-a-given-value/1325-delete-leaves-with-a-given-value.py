@@ -9,8 +9,8 @@ class Solution:
         if root is None:
             return None
         
-        if root.left is None and root.right is None and root.val == target:
-            return None
+        # if root.left is None and root.right is None and root.val == target:
+        #     return None
 
         root.left = self.removeLeafNodes(root.left, target)
         root.right = self.removeLeafNodes(root.right, target)
