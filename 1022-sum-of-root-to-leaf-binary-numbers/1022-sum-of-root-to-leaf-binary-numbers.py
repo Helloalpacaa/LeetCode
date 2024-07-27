@@ -6,15 +6,20 @@
 #         self.right = right
 class Solution:
     def sumRootToLeaf(self, root: Optional[TreeNode]) -> int:
-        def traversal(node: Optional, val: int) -> int:
+        self.ans = 0
+
+        def traversal(node: Optional[TreeNode], val: int) -> int:
             if node is None:
                 return 0
             
-            val = val * 2 + node.val
-
-            if node.left is None and node.right is None:
-                return val
+            val += node.val
+            left = traversal(node.left, val * 2)
+            right = traversal(node.right, val * 2)
             
-            return traversal(node.left, val) + traversal(node.right, val)
+            if node.left is None and node.right is None:
+                self.ans += val + left + right
+            
+            return val + left + right
         
-        return traversal(root, 0)
+        traversal(root, 0)
+        return self.ans
