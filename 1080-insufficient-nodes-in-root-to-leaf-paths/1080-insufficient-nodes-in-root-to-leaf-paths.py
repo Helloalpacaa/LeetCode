@@ -6,15 +6,13 @@
 #         self.right = right
 class Solution:
     def sufficientSubset(self, root: Optional[TreeNode], limit: int) -> Optional[TreeNode]:
-        if not root:
+        if root is None:
             return None
-        
-        # 先check当前node是否是leaf
-        if not root.left and not root.right:
+
+        if root.left is None and root.right is None:
             return root if root.val >= limit else None
         
         root.left = self.sufficientSubset(root.left, limit - root.val)
         root.right = self.sufficientSubset(root.right, limit - root.val)
 
-        # 来到这里说明这个node本来不是leaf，但是left和right child被改为了None
         return None if not root.left and not root.right else root
