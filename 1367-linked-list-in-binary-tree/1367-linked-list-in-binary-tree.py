@@ -11,7 +11,6 @@
 #         self.right = right
 class Solution:
     def isSubPath(self, head: Optional[ListNode], root: Optional[TreeNode]) -> bool:
-        
         def traversal(head: Optional[ListNode], root: Optional[TreeNode]) -> bool:
             if head is None:
                 return True
