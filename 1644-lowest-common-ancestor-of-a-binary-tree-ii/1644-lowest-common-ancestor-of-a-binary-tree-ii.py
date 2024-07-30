@@ -10,29 +10,25 @@ class Solution:
         self.p_found = False
         self.q_found = False
 
-        def dfs(node: 'TreeNode') -> 'TreeNode':
+        def traversal(node: 'TreeNode') -> 'TreeNode':
             if node is None:
                 return None
             
-            left = dfs(node.left)
-            right = dfs(node.right)
-
+            left = traversal(node.left)
+            right = traversal(node.right)
+            
             if node == p:
                 self.p_found = True
-                return node
-            
+                return p
+
             if node == q:
                 self.q_found = True
-                return node
+                return q
             
             if left and right:
                 return node
             
             return left or right
-
-        result = dfs(root)
-
-        if self.p_found and self.q_found:
-            return result
-        else:
-            return None
+        
+        ans = traversal(root)
+        return ans if self.p_found and self.q_found else None
