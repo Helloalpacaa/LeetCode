@@ -11,7 +11,7 @@ class Solution:
         """
         if root is None:
             return
-        
+            
         self.flatten(root.left)
         self.flatten(root.right)
 
@@ -26,4 +26,5 @@ class Solution:
             p = p.right
         
         p.right = right
+        
 
