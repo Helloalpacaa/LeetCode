@@ -8,38 +8,33 @@
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
         self.graph = defaultdict(list)
-
-        def buildGraph(child: TreeNode, parent: TreeNode) -> None:
+        
+        def buildGraph(parent: TreeNode, child: TreeNode) -> None:
             if child is None:
                 return
             
             if parent:
-                self.graph[child].append(parent)
                 self.graph[parent].append(child)
-            
-            buildGraph(child.left, child)
-            buildGraph(child.right, child)
+                self.graph[child].append(parent)
+
+            buildGraph(child, child.left)
+            buildGraph(child, child.right)
         
-        buildGraph(root, None)
+        buildGraph(None, root)
+
+        ans = []
         queue = deque([(target, 0)])
         visited = set([target])
-        ans = []
-        
+
         while queue:
             node, distance = queue.popleft()
 
             if distance == k:
                 ans.append(node.val)
-
+            
             for neighbor in self.graph[node]:
                 if neighbor not in visited and distance < k:
                     visited.add(neighbor)
                     queue.append([neighbor, distance + 1])
         
         return ans
-        
-
-
-
-
-                
