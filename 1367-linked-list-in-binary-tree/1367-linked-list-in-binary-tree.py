@@ -11,24 +11,23 @@
 #         self.right = right
 class Solution:
     def isSubPath(self, head: Optional[ListNode], root: Optional[TreeNode]) -> bool:
-
-        # traversal只check当前root是否和head一致
-        def traversal(head: Optional[ListNode], root: Optional[TreeNode]) -> bool:
-            if head is None:
-                return True
-            
-            if root is None:
-                return False
-             
-            if head.val != root.val:
-                return False
-
-            return traversal(head.next, root.left) or traversal(head.next, root.right)
-        
         if head is None:
             return True
+         
         if root is None:
             return False
         
-        # 如果当前root和head不一致，一直向下查找
+        #只比较当前node的结果
+        def traversal(head: Optional[ListNode], node: Optional[TreeNode]) -> bool:
+            if head is None:
+                return True
+            
+            if node is None:
+                return False
+            
+            if head.val != node.val:
+                return False
+            
+            return traversal(head.next, node.left) or traversal(head.next, node.right)
+        
         return traversal(head, root) or self.isSubPath(head, root.left) or self.isSubPath(head, root.right)
