@@ -17,7 +17,7 @@ class Solution:
 
             self.maxPath = max(self.maxPath, node.val + left + right)
 
-            return node.val + max(left, right)
+            return max(left, right) + node.val
         
         traversal(root)
         return self.maxPath
