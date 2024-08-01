@@ -6,23 +6,21 @@
 #         self.right = right
 class Solution:
     def delNodes(self, root: Optional[TreeNode], to_delete: List[int]) -> List[TreeNode]:
-        self.deleteLists = set(to_delete)
+        to_delete = set(to_delete)
         self.ans = []
 
-        def traversal(node: Optional[TreeNode], isRoot: bool) -> Optional[TreeNode]:
+        def traversal(node: Optional[TreeNode], isRoot: bool) -> TreeNode:
             if node is None:
                 return None
             
-            isDelete = node.val in self.deleteLists
-            # 只有当遇到新的root且不在被删除list里才需要加进ans里
+            isDelete = node.val in to_delete
             if isRoot and not isDelete:
                 self.ans.append(node)
             
-            # 如果isDelete为True，那么它的children就是新的root
             node.left = traversal(node.left, isDelete)
             node.right = traversal(node.right, isDelete)
 
             return None if isDelete else node
         
-        traversal(root, True)
+        root = traversal(root, True)
         return self.ans
