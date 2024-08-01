@@ -7,37 +7,21 @@
 class FindElements:
 
     def __init__(self, root: Optional[TreeNode]):
-        self.root = self.dfs(root, 0)
+        self.sets = set()
+        self.traversal(root, 0)
     
-    def dfs(self, node: Optional[TreeNode], val: int):
+    def traversal(self, node: Optional[TreeNode], val: int) -> None:
         if node is None:
             return
         
         node.val = val
-        node.left = self.dfs(node.left, node.val * 2 + 1)
-        node.right = self.dfs(node.right, node.val * 2 + 2)
+        self.sets.add(val)
 
-        return node
+        self.traversal(node.left, val * 2 + 1)
+        self.traversal(node.right, val * 2 + 2)
 
     def find(self, target: int) -> bool:
-        return self.findHelper(self.root, target)
-    
-    def findHelper(self, node: Optional[TreeNode], target: int) -> bool:
-        if node is None:
-            return False
-        
-        if node.val == target:
-            return True
-
-        if node.val > target:
-            return False
-        
-        return self.findHelper(node.left, target) or self.findHelper(node.right, target)
-        
-
-        
-        
-        
+        return target in self.sets
 
 
 # Your FindElements object will be instantiated and called as such:
