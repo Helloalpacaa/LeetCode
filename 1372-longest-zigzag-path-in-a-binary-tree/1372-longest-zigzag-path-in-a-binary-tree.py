@@ -6,22 +6,23 @@
 #         self.right = right
 class Solution:
     def longestZigZag(self, root: Optional[TreeNode]) -> int:
-        self.maxLength = 0
+        self.longest = 0
 
-        def traversal(node: Optional[TreeNode], isLeft: bool, length: int) -> None:
+        def traversal(node: Optional[TreeNode], isLeft: bool, depth: int) -> None:
             if node is None:
                 return
-            
-            self.maxLength = max(self.maxLength, length)
-            
+
+            # self.longest = max(self.longest, depth)
+
             if isLeft:
-                traversal(node.right, False, length + 1)
+                traversal(node.right, False, depth + 1)
                 traversal(node.left, True, 1)
             else:
-                traversal(node.left, True, length + 1)
+                traversal(node.left, True, depth + 1)
                 traversal(node.right, False, 1)
-        
+            
+            self.longest = max(self.longest, depth)
+            
         traversal(root, True, 0)
         traversal(root, False, 0)
-        
-        return self.maxLength
+        return self.longest
