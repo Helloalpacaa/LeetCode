@@ -6,23 +6,22 @@
 #         self.right = right
 class Solution:
     def maximumAverageSubtree(self, root: Optional[TreeNode]) -> float:
-        self.maxAve = float('-inf')
-        self.count = 0
-
-        def traversal(node: Optional[TreeNode], val: int) -> int:
-            if node is None:
-                return 0
-            
-            left = traversal(node.left, val)
-            right = traversal(node.right, val)
-
-            val = node.val + left + right
-            self.count += 1
-            print(val)
-            self.maxAve = max(self.maxAve, val / self.count)
-
-            return val
+        self.maxAve = 0
         
-        traversal(root, 0)
+        def traversal(node: Optional[TreeNode]) -> Tuple[int, float]:
+            if node is None:
+                return [0, 0.0]
+            
+            leftCount, leftSum = traversal(node.left)
+            rightCount, rightSum = traversal(node.right)
+
+            total = node.val + leftSum + rightSum
+            count = leftCount + rightCount + 1
+
+            self.maxAve = max(self.maxAve, total / count)
+
+            return (count, total)
+        
+        traversal(root)
         return self.maxAve
             
