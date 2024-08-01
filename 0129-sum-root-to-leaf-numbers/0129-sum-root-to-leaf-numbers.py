@@ -6,16 +6,19 @@
 #         self.right = right
 class Solution:
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
-        self.sum = 0
+        self.ans = 0
 
-        def traversal(node: Optional[TreeNode], val: int) -> int:
+        def traversal(node: Optional[TreeNode], val: int) -> None:
             if node is None:
-                return 0
+                return
             
-            val += node.val
-            if node.left is None and node.right is None:
-                return val
+            val = val * 10 + node.val
+
+            if not node.left and not node.right:
+                self.ans += val
             
-            return traversal(node.left, val * 10) + traversal(node.right, val * 10)
+            traversal(node.left, val)
+            traversal(node.right, val)
         
-        return traversal(root, 0)
+        traversal(root, 0)
+        return self.ans
