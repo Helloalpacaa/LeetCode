@@ -6,24 +6,30 @@
 #         self.right = right
 class Solution:
     def maxProduct(self, root: Optional[TreeNode]) -> int:
+        self.total = 0
+
+        def sumCal(node: Optional[TreeNode]) -> None:
+            if node is None:
+                return
+            
+            self.total += node.val
+            sumCal(node.left)
+            sumCal(node.right)
+        
+        sumCal(root)
+        self.maxPro = float('-inf')
 
         def traversal(node: Optional[TreeNode]) -> int:
             if node is None:
                 return 0
             
-            currSum = node.val + traversal(node.left) + traversal(node.right)
+            left = traversal(node.left)
+            right = traversal(node.right)
 
-            self.sums.append(currSum)
+            currSum = left + right + node.val
+            self.maxPro = max(self.maxPro, currSum * (self.total - currSum))
 
             return currSum
 
-        self.sums = []
-        total = traversal(root)
-        
-        max_product = 0
-        for sum in self.sums:
-            max_product = max(max_product, sum * (total - sum))
-
-        return max_product % (10 ** 9 + 7)
-        
-        
+        traversal(root)
+        return self.maxPro % (10 ** 9 + 7)
