@@ -6,25 +6,22 @@
 #         self.right = right
 class Solution:
     def maxSumBST(self, root: Optional[TreeNode]) -> int:
-        self.maxBST = 0
+        self.maxSum = 0
 
-        # return is_BST, minVal, maxVal, sumVal
-        def traversal(node: Optional[TreeNode]):
+        # return isBST, minVal, maxVal, currSum
+        def traversal(node: Optional[TreeNode]) -> (bool, float, float, int):
             if node is None:
                 return True, float('inf'), float('-inf'), 0
             
-            left_isBST, left_minVal, left_maxVal, left_sumVal = traversal(node.left)
-            right_isBST, right_minVal, right_maxVal, right_sumVal = traversal(node.right)
+            left_isBST, left_minVal, left_maxVal, left_sum = traversal(node.left)
+            right_isBST, right_minVal, right_maxVal, right_sum = traversal(node.right)
 
             if left_isBST and right_isBST and left_maxVal < node.val < right_minVal:
-                sumVal = left_sumVal + right_sumVal + node.val
-                self.maxBST = max(self.maxBST, sumVal)
-                minVal = min(left_minVal, node.val)
-                maxVal = max(right_maxVal, node.val)
-                return True, minVal, maxVal, sumVal
+                curr_sum = left_sum + right_sum + node.val
+                self.maxSum = max(self.maxSum, curr_sum)
+                return True, left_minVal if node.left else node.val, right_maxVal if node.right else node.val, curr_sum
             
             return False, 0, 0, 0
         
         traversal(root)
-        return self.maxBST
-        
+        return self.maxSum
