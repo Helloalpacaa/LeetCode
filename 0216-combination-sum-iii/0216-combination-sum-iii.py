@@ -6,8 +6,9 @@ class Solution:
             if len(path) > k:
                 return
             
-            if len(path) == k and total == n:
-                ans.append(path[:])
+            if len(path) == k:
+                if total == n:
+                    ans.append(path[:])
                 return
             
             for num in range(startNum, 10):
