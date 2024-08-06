@@ -10,20 +10,14 @@ class Solution:
                     return False
 
             # check upper-left diagonal
-            i, j = row - 1, col - 1
-            while i >= 0 and j >= 0:
+            for i, j in zip(range(row - 1, -1, -1), range(col - 1, -1, -1)):
                 if board[i][j] == 'Q':
                     return False
-                i -= 1
-                j -= 1
             
             # check upper-right diagonal
-            i, j = row - 1, col + 1
-            while i >= 0 and j < n:
+            for i, j in zip(range(row - 1, -1, -1), range(col + 1, n, 1)):
                 if board[i][j] == 'Q':
                     return False
-                i -= 1
-                j += 1
             
             return True
         
