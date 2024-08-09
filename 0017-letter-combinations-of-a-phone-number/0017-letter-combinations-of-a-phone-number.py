@@ -1,22 +1,17 @@
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
-        words = ["", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"]
+        letters = ["", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"]
         ans = []
 
-        if len(digits) == 0:
-            return ans
-
-        def backtracking(startIdx: int, path: List[str]) -> None:
-            if len(path) == len(digits):
-                ans.append("".join(path[:]))
+        def backtracking(index: int, path: str) -> None:
+            if len(path) == len(digits) and len(digits) != 0:
+                ans.append(path[:])
                 return
             
-            digit = int(digits[startIdx])
-
-            for char in words[digit]:
-                path.append(char)
-                backtracking(startIdx + 1, path)
-                path.pop()
-        
-        backtracking(0, [])
+            for i in range(index, len(digits)):
+                digit = int(digits[index])
+                for letter in letters[digit]:
+                    backtracking(i + 1, path + letter)
+            
+        backtracking(0, "")
         return ans
