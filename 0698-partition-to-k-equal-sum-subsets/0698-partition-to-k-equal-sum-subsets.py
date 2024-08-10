@@ -22,8 +22,10 @@ class Solution:
                     return True
                 used[i] = False
 
+                # curr_sum没有变，因为我们上面backtracking用的是curr_sum + nums[i]
+                # 如果经历了上面backtracking的寻找，curr_sum依然等于一开始的0，说明我们没能找到匹配的值
                 if curr_sum == 0:
-                    break
+                    return False
             
             return False
         
