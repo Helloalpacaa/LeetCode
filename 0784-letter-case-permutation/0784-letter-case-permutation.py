@@ -2,27 +2,17 @@ class Solution:
     def letterCasePermutation(self, s: str) -> List[str]:
         ans = []
 
-        def backtracking(path: List[str], index: int) -> None:
+        def generate(index: int, path: str) -> None:
             if len(path) == len(s):
-                ans.append("".join(path[:]))
+                ans.append(path)
                 return
             
-            if s[index].isdigit():
-                path.append(s[index])
-                backtracking(path, index + 1)
-                path.pop() # 这里的pop()必须有，因为要一直回溯到一开始，如果中间有一个数字不回溯，就没法回溯到这个数字之前的字母
-            else:
-                path.append(s[index].lower())
-                backtracking(path, index + 1)
-                path.pop()
-
-                path.append(s[index].upper())
-                backtracking(path, index + 1)
-                path.pop()
+            for i in range(index, len(s)):
+                if s[i].isdigit():
+                    generate(i + 1, path + s[i])
+                else:
+                    generate(i + 1, path + s[i].lower())
+                    generate(i + 1, path + s[i].upper())
         
-        backtracking([], 0)
+        generate(0, "")
         return ans
-
-                
-                
-                
