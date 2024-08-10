@@ -7,14 +7,10 @@ class Solution:
                 ans.append(path[:])
                 return
             
-            if left == right:
+            if left < n:
                 generate(left + 1, right, path + "(")
-            elif left > right:
-                if left < n:
-                    generate(left + 1, right, path + "(")
-                    generate(left, right + 1, path + ")")
-                else:
-                    generate(left, right + 1, path + ")")
+            if right < left:
+                generate(left, right + 1, path + ")")
         
         generate(0, 0, "")
         return ans
