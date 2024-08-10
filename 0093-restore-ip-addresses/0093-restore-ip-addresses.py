@@ -10,8 +10,12 @@ class Solution:
                 ans.append(".".join(parts))
                 return
             
+            if len(parts) == 4 or index == len(s):
+                return
+            
             for i in range(index, len(s)):
                 substring = s[index: i + 1]
+
                 if isValid(substring):
                     parts.append(substring)
                     backtracking(i + 1, parts)
