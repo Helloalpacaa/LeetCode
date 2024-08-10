@@ -3,22 +3,19 @@ class Solution:
         ans = []
 
         def isValid(s: str) -> bool:
-            return len(s) == 1 or (len(s) > 1 and s[0] != '0' and int(s) <= 255)
-
-        def backtracking(parts: List[str], index: int) -> None:
+            return len(s) == 1 or s[0] != "0" and int(s) <= 255
+        
+        def backtracking(index: int, parts: List[str]) -> None:
             if len(parts) == 4 and index == len(s):
-                ans.append(".".join(parts[:]))
+                ans.append(".".join(parts))
                 return
             
-            # 这步优化不能少
-            if len(parts) == 4 or index == len(s):
-                return
-
-            for i in range(len(s)):
-                if isValid(s[index: i + 1]):
-                    parts.append(s[index: i + 1])
-                    backtracking(parts, i + 1)
+            for i in range(index, len(s)):
+                substring = s[index: i + 1]
+                if isValid(substring):
+                    parts.append(substring)
+                    backtracking(i + 1, parts)
                     parts.pop()
-        
-        backtracking([], 0)
+
+        backtracking(0, [])
         return ans
