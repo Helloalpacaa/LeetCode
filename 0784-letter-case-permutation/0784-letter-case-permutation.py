@@ -7,12 +7,12 @@ class Solution:
                 ans.append(path)
                 return
             
-            for i in range(index, len(s)):
-                if s[i].isdigit():
-                    generate(i + 1, path + s[i])
-                else:
-                    generate(i + 1, path + s[i].lower())
-                    generate(i + 1, path + s[i].upper())
+            
+            if s[index].isdigit():
+                generate(index + 1, path + s[index])
+            else:
+                generate(index + 1, path + s[index].lower())
+                generate(index + 1, path + s[index].upper())
         
         generate(0, "")
         return ans
