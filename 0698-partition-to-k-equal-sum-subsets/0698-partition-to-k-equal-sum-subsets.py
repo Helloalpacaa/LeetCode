@@ -1,8 +1,5 @@
 class Solution:
     def canPartitionKSubsets(self, nums: List[int], k: int) -> bool:
-        if len(nums) < k:
-            return False
-        
         if sum(nums) % k != 0:
             return False
         
@@ -17,7 +14,7 @@ class Solution:
                 return backtracking(count + 1, 0, 0)
             
             for i in range(index, len(nums)):
-                if used[i] or curr_sum + nums[i] > target:
+                if used[i] or nums[i] > target - curr_sum:
                     continue
                 
                 used[i] = True
@@ -27,13 +24,10 @@ class Solution:
 
                 if curr_sum == 0:
                     break
-
+            
             return False
         
         nums.sort(reverse=True)
         return backtracking(0, 0, 0)
 
-        
-            
-            
-            
+                
