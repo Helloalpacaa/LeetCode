@@ -1,29 +1,22 @@
 class Solution:
     def shoppingOffers(self, price: List[int], special: List[List[int]], needs: List[int]) -> int:
+        memo = {}
 
-        # looking for the minimum cost
-        def backtracking(current_needs: List[int]) -> int :
-            if sum(current_needs) == 0:
+        def backtracking(curr_needs: List[int]) -> int:
+            if sum(curr_needs) == 0:
                 return 0
             
-            # use a tuple as a key of memo, because tuple won't be accidentaly modified
-            # and it's more memory efficient than list
-            if tuple(current_needs) in memo:
-                return memo[tuple(current_needs)]
-
-            # Initialize with buying everything at regular price
-            min_cost = sum(price[i] * current_needs[i] for i in range(len(needs)))
-
-            for offer in special:
-                if all(offer[i] <= current_needs[i] for i in range(len(needs))):
-                    new_needs = [current_needs[i] - offer[i] for i in range(len(needs))]
-                    offer_cost = offer[-1] + backtracking(new_needs)
-                    min_cost = min(min_cost, offer_cost)
+            if tuple(curr_needs) in memo:
+                return memo[tuple(curr_needs)]
             
-            memo[tuple(current_needs)] = min_cost
+            min_cost = sum(curr_needs[i] * price[i] for i in range(len(curr_needs)))
+
+            for sale in special:
+                if all(curr_needs[i] >= sale[i] for i in range(len(curr_needs))):
+                    new_needs = [curr_needs[i] - sale[i] for i in range(len(curr_needs))]
+                    min_cost = min(min_cost, sale[-1] + backtracking(new_needs))
+            
+            memo[tuple(curr_needs)] = min_cost
             return min_cost
-
-        memo = {}
+        
         return backtracking(needs)
-                    
-
