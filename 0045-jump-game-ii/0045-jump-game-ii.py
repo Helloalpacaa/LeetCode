@@ -4,6 +4,8 @@ class Solution:
         furthest = 0
         end = 0
 
+        # we are jumping to the furthest point in the current coverage
+        # when we reach the current end, trigger another jump
         for i in range(len(nums) - 1):
             furthest = max(furthest, nums[i] + i)
             if end == i:
