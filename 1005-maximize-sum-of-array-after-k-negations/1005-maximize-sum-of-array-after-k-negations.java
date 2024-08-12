@@ -1,18 +1,13 @@
 class Solution {
-    public int largestSumAfterKNegations(int[] nums, int k) {
-        nums = IntStream.of(nums).boxed().sorted((a, b) -> Math.abs(b) - Math.abs(a))
-        .mapToInt(Integer::intValue).toArray();
-        
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] < 0 && k > 0) {
-                nums[i] = - nums[i];
-                k--;
-            }
+    public int largestSumAfterKNegations(int[] A, int K) {
+        Arrays.sort(A);
+        for (int i = 0; K > 0 && i < A.length && A[i] < 0; ++i, --K)
+            A[i] = -A[i];
+        int res = 0, min = Integer.MAX_VALUE;
+        for (int a : A) {
+            res += a;
+            min = Math.min(min, a);
         }
-
-        if (k % 2 == 1) {
-            nums[nums.length - 1] = - nums[nums.length - 1];
-        }
-        return Arrays.stream(nums).sum();
+        return res - (K % 2) * min * 2;
     }
 }
