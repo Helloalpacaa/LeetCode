@@ -14,7 +14,6 @@ class Solution:
                 else:
                     five -= 2
                 five -= 1
-                twenty += 1
             
             if five < 0 or ten < 0:
                 return False
