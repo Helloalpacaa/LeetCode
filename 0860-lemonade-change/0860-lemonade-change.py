@@ -9,11 +9,11 @@ class Solution:
                 five -= 1
                 ten += 1
             else:
-                if ten > 0:
+                if ten > 0 and five > 0:
                     ten -= 1
+                    five -=1
                 else:
-                    five -= 2
-                five -= 1
+                    five -= 3
             
             if five < 0 or ten < 0:
                 return False
