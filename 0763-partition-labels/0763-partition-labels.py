@@ -1,18 +1,13 @@
-class Solution(object):
-    def partitionLabels(self, s):
-        """
-        :type s: str
-        :rtype: List[int]
-        """
-        edges = {}
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+        hashmap = {}
         for i in range(len(s)):
-            edges[s[i]] = i
+            hashmap[s[i]] = i
         
-        left = 0
-        right = 0
+        left, right = 0, 0
         ans = []
         for i in range(len(s)):
-            right = max(right, edges[s[i]])
+            right = max(right, hashmap[s[i]])
             if i == right:
                 ans.append(right - left + 1)
                 left = i + 1
