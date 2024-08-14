@@ -6,14 +6,18 @@ class Solution:
             if bill == 5:
                 five += 1
             elif bill == 10:
+                if five < 0:
+                    return False
                 five -= 1
                 ten += 1
             else:
                 if ten > 0 and five > 0:
                     ten -= 1
                     five -=1
-                else:
+                elif five >= 3:
                     five -= 3
+                else:
+                    return False
             
             if five < 0 or ten < 0:
                 return False
