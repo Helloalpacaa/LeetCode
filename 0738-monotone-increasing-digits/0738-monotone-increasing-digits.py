@@ -8,6 +8,7 @@ class Solution:
                 s[i - 1] = str(int(s[i - 1]) - 1)
                 start = i
         
+        # 从最后一个变小了数字的之后一位开始 都改成9
         for i in range(start, len(s)):
             s[i] = '9'
         
