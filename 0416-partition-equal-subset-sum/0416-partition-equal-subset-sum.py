@@ -6,11 +6,11 @@ class Solution:
         target = sum(nums) // 2
         # 背包容量为target，遍历nums，最多能装多少
         n = len(nums)
-        dp = [0] * (target + 1)
+        dp = [False] * (target + 1)
+        dp[0] = True
 
         for num in nums:
-            for j in range(target, -1, -1):
-                if j >= num:
-                    dp[j] = max(dp[j], dp[j - num] + num)
+            for j in range(target, num - 1, -1):
+                dp[j] = dp[j] or dp[j - num]
 
-        return dp[target] == target
+        return dp[target]
