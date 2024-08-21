@@ -4,8 +4,7 @@ class Solution:
             return False
         
         target = sum(nums) // 2
-        # 背包容量为target，遍历nums，最多能装多少
-        n = len(nums)
+        # 背包容量为target，遍历nums，是否能装满
         dp = [False] * (target + 1)
         dp[0] = True
 
