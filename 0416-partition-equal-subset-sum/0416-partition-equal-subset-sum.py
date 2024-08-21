@@ -4,14 +4,14 @@ class Solution:
             return False
         
         target = sum(nums) // 2
-        # 背包容量为target，遍历nums，能填满就return True
+        # 背包容量为target，遍历nums，最多能装多少
         n = len(nums)
-        dp = [[0] * (target + 1) for _ in range(n + 1)]
-        for i in range(1, n + 1):
-            for j in range(1, target + 1):
-                if j - nums[i - 1] >= 0:
-                    dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - nums[i - 1]] + nums[i - 1])
-                else:
-                    dp[i][j] = dp[i - 1][j]
+        dp = [0] * (target + 1)
 
-        return dp[n][target] == target
+        # 如果先
+        for i in range(n):
+            for j in range(target, -1, -1):
+                if j >= nums[i]:
+                    dp[j] = max(dp[j], dp[j - nums[i]] + nums[i])
+
+        return dp[target] == target
