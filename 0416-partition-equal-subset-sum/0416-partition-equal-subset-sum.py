@@ -8,10 +8,9 @@ class Solution:
         n = len(nums)
         dp = [0] * (target + 1)
 
-        # 如果先
-        for i in range(n):
+        for num in nums:
             for j in range(target, -1, -1):
-                if j >= nums[i]:
-                    dp[j] = max(dp[j], dp[j - nums[i]] + nums[i])
+                if j >= num:
+                    dp[j] = max(dp[j], dp[j - num] + num)
 
         return dp[target] == target
