@@ -4,12 +4,11 @@ class Solution:
             return False
         
         target = sum(nums) // 2
-        # 背包容量为target，遍历nums，是否能装满
+
         dp = [False] * (target + 1)
         dp[0] = True
-
-        for num in nums:
-            for j in range(target, num - 1, -1):
-                dp[j] = dp[j] or dp[j - num]
-
+        for i in range(len(nums)):
+            for j in range(target, nums[i] - 1, -1):
+                dp[j] |= dp[j - nums[i]]
+        
         return dp[target]
