@@ -18,7 +18,7 @@ class Solution:
 
             # 抢当前node，那么就不能抢left child and right child
             rob = node.val + left[1] + right[1]
-            # 不抢当前node，就可以抢left child and right child，取更大的值
+            # 不抢当前node，就可以抢left child and right child，可以选择抢或者不抢，取更大的值
             not_rob = max(left) + max(right)
 
             return (rob, not_rob)
