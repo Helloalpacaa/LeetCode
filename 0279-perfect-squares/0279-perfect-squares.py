@@ -4,7 +4,7 @@ class Solution:
         for i in range(n + 1):
             dp[i] = i
         
-        for i in range(int(sqrt(n + 1)) + 1):
+        for i in range(int(sqrt(n)) + 1):
             dp[i * i] = 1
         
         for i in range(n + 1):
