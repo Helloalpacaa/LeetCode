@@ -5,7 +5,7 @@ class Solution:
         dp[0] = True
         wordDictSet = set(wordDict)
 
-        for i in range(n + 1):
+        for i in range(n):
             if dp[i]:
                 for j in range(i + 1, n + 1):
                     if s[i: j] in wordDictSet:
