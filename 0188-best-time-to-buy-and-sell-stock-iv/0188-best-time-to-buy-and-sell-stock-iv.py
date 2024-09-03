@@ -8,7 +8,4 @@ class Solution:
                 hold[i] = max(hold[i], not_hold[i - 1] - price)
                 not_hold[i] = max(not_hold[i], hold[i] + price)
         
-        print(hold)
-        print(not_hold)
-        
         return not_hold[k]
