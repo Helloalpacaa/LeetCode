@@ -1,5 +1,6 @@
 class Solution:
     def maxProfit(self, k: int, prices: List[int]) -> int:
+        n = len(prices)
         hold = [-prices[0]] * (k + 1)
         not_hold = [0] * (k + 1)
 
