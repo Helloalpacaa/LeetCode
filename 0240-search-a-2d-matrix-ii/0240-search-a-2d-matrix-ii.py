@@ -10,16 +10,20 @@ class Solution:
             if startRow >= endRow or startCol >= endCol:
                 return False
             
-            row = (endRow - startRow) // 2
-            col = (endCol - startCol) // 2
-            medium = matrix[row][col]
+            midRow = (startRow + endRow) // 2
+            midCol = (startCol + endCol) // 2
+            medium = matrix[midRow][midCol]
 
             if medium == target:
                 return True
             elif medium < target:
-                return search(startRow, row, startCol, col + 1) or search(row, row + 1, startCol, col)
+                # Search bottom-left and top-right quadrants
+                return search(midRow + 1, endRow, startCol, endCol) or \
+                       search(startRow, midRow + 1, midCol + 1, endCol)
             else:
-                return search(startRow, row + 1, col + 1, endCol) or search(row + 1, endRow, startCol, endCol)
+                # Search top-left and bottom-right quadrants
+                return search(startRow, midRow, startCol, endCol) or \
+                       search(midRow, endRow, startCol, midCol)
 
         
         return search(0, m, 0, n)
