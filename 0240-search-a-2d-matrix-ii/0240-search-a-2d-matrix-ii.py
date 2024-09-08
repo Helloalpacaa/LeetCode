@@ -16,14 +16,10 @@ class Solution:
 
             if medium == target:
                 return True
-            elif medium < target:
-                # Search bottom-left and top-right quadrants
-                return search(midRow + 1, endRow, startCol, endCol) or \
-                       search(startRow, midRow + 1, midCol + 1, endCol)
+            elif medium > target:
+                return search(startRow, midRow, startCol, endCol) or search(midRow, endRow, startCol, midCol)
             else:
-                # Search top-left and bottom-right quadrants
-                return search(startRow, midRow, startCol, endCol) or \
-                       search(midRow, endRow, startCol, midCol)
+                return search(startRow, endRow, midCol + 1, endCol) or search(midRow + 1, endRow, startCol, midCol + 1)
 
         
         return search(0, m, 0, n)
