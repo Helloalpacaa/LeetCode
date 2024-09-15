@@ -11,7 +11,5 @@ class Solution:
             for j in range(int(sqrt(i)) + 1):
                 perfectSquare = j * j
                 dp[i] = min(dp[i], dp[i - perfectSquare] + 1)
-        
-        print(dp)
 
         return dp[n]
