@@ -1,7 +1,7 @@
 class Solution:
     def countSubstrings(self, s: str) -> int:
         n = len(s)
-        dp = [[False] * n for _ in range(n)]
+        dp = [[False] * (n) for _ in range(n)]
         count = 0
 
         for i in range(n - 1, -1, -1):
