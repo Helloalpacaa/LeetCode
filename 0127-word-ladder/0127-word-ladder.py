@@ -18,7 +18,7 @@ class Solution:
                         if char == letter:
                             continue
                         word[i] = char
-                        newWord = ''.join(word)
+                        newWord = "".join(word)
                         if newWord == endWord:
                             return step + 1
                             
