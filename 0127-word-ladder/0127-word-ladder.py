@@ -14,10 +14,10 @@ class Solution:
                 word = list(queue.popleft())
                 for i in range(len(word)):
                     letter = word[i]
-                    for char in range(ord('a'), ord('z') + 1):
-                        if chr(char) == letter:
+                    for char in string.ascii_lowercase:
+                        if char == letter:
                             continue
-                        word[i] = chr(char)
+                        word[i] = char
                         newWord = ''.join(word)
                         if newWord == endWord:
                             return step + 1
