@@ -35,13 +35,15 @@ class Solution:
             father[u] = find(father[u])
             return father[u]
         
-        # 如果有indegrees为2的nodes，check如果不用candidate 2来组成graph，是否还是一个valid的graph
+        # 如果有indegrees为2的nodes
         if candidate2:
+            # check如果不用candidate 2来组成graph，是否还是一个valid的graph
             for u, v in edges:
                 if (u, v) == candidate2:
                     continue
                 join(u, v)
             
+            # 如果没有用到candidate2那条edge，那条edge上的nodes却还存在在graph里（connected with other nodes)，说明这是一条多余的边
             if find(candidate2[0]) == find(candidate2[1]):
                 return candidate2
             else:
