@@ -5,28 +5,27 @@ class Solution:
             return 0
         
         queue = deque([beginWord])
-        visited = set([beginWord])
         step = 1
+        visited = set([beginWord])
 
         while queue:
             size = len(queue)
             for _ in range(size):
-                word = list(queue.popleft())
+                word = queue.popleft()
                 for i in range(len(word)):
-                    letter = word[i]
                     for char in string.ascii_lowercase:
-                        if char == letter:
+                        if char == word[i]:
                             continue
-                        word[i] = char
-                        newWord = "".join(word)
+                        newWord = list(word)
+                        newWord[i] = char
+                        newWord = "".join(newWord)
                         if newWord == endWord:
                             return step + 1
-                            
                         if newWord in wordSet and newWord not in visited:
                             queue.append(newWord)
                             visited.add(newWord)
-                    
-                        word[i] = letter
+                        
             step += 1
         
         return 0
+
