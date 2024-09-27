@@ -4,23 +4,20 @@ class Solution:
         father = [i for i in range(n + 1)]
 
         def find(u: int) -> int:
-            if u == father[u]:
-                return u
-            father[u] = find(father[u])
+            if u != father[u]:
+                father[u] = find(father[u])
             return father[u]
-
-        def join(u, v) -> None:
+        
+        def union(u: int, v: int) -> None:
             u = find(u)
             v = find(v)
-            if u == v:
-                return
-            father[v] = u
+            if u != v:
+                father[v] = u
         
-        for edge in edges:
-            u = edge[0]
-            v = edge[1]
+        ans = []
+        for u, v in edges:
             if find(u) == find(v):
-                ans = edge
-            join(u, v)
-            
+                ans = [u, v]
+            union(u, v)
+        
         return ans
