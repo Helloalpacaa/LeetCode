@@ -17,9 +17,8 @@ class Solution:
         
         if node in self.visited:
             return self.visited[node]
-        
-        clone = Node(node.val, [])
 
+        clone = Node(node.val, [])
         self.visited[node] = clone
 
         for neighbor in node.neighbors:
