@@ -22,9 +22,11 @@ class Solution:
                 if i == 0: # First round
                     dp[i][j][d] = 1
                 else:
-                    for j2 in range(3):
-                        if j != j2:
+                    for j2 in range(3): # Bob's previous move
+                        if j != j2: # Current move cannot be as same as previous move
+                            # Iterates over all the score differences v and their counts from the previous round i -1 when Bob's last move was j2
                             for v, count in dp[i - 1][j2].items():
+                                # 其实就是dp[i][j][v + d] += count
                                 dp[i][j][v + d] = (dp[i][j][v + d] + count) % MOD
         
         ans = 0
