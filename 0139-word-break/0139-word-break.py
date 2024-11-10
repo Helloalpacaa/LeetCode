@@ -9,7 +9,8 @@ class Solution:
 
         for i in range(1, len(dp)):
             for word in wordDict:
-                if i >= len(word) and s[i - len(word): i] == word:
+                if  i - len(word) >= 0 and s[i - len(word): i] == word:
                     dp[i] = dp[i] or dp[i - len(word)]
         
+        print(dp)
         return dp[len(s)]
