@@ -15,10 +15,16 @@ class Solution:
                 elif operator == '*':
                     stack.append(stack.pop() * num)
                 else:
-                    stack.append(stack.pop() // num)
+                    tmp = stack.pop()
+                    if tmp < 0 and num > 0:
+                        tmp = -tmp
+                        stack.append(-(tmp // num))
+                    else:
+                        stack.append(tmp // num)
                 
                 operator = s[i]
                 num = 0
+            
         
         return sum(stack)
                 
