@@ -1,18 +1,17 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        longest = 0
-        n = len(s)
-        window = set()
+        window = {}
+        ans = 0
 
-        # two pointers
-        i = 0
-        for j in range(n):
-            char = s[j]
+        left = 0
+        for right in range(len(s)):
+            char = s[right]
             while char in window:
-                window.remove(s[i])
-                i += 1
+                window[s[left]] = window.get(s[left]) - 1
+                if window[s[left]] == 0:
+                    del window[s[left]]
+                left += 1
             
-            window.add(char)
-            longest = max(longest, len(window))
-        
-        return longest
+            window[char] = window.get(char, 0) + 1
+            ans = max(ans, right - left + 1)
+        return ans
