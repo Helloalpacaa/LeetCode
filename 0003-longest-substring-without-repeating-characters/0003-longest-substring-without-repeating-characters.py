@@ -14,4 +14,5 @@ class Solution:
             
             window[char] = window.get(char, 0) + 1
             ans = max(ans, right - left + 1)
+            
         return ans
