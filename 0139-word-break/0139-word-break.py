@@ -1,13 +1,15 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        wordSet = set(wordDict)
-        n = len(s)
-        dp = [False] * (n + 1)
+        # 1. transform wordDict to a set to we can check the existense with O(1)
+        wordDict = set(wordDict)
+
+        # dp[i]: ending with s[i - 1], if the string can be formed by the words in wordDict
+        dp = [False] * (len(s) + 1)
         dp[0] = True
 
-        for i in range(1, n + 1):
-            for j in range(1, i + 1):
-                if s[j - 1: i] in wordSet and dp[j - 1]:
-                    dp[i] = True
-
-        return dp[n]
+        for i in range(1, len(dp)):
+            for word in wordDict:
+                if i >= len(word) and s[i - len(word): i] == word:
+                    dp[i] = dp[i] or dp[i - len(word)]
+        
+        return dp[len(s)]
