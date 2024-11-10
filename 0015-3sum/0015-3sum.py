@@ -4,6 +4,9 @@ class Solution:
         ans = []
         
         for i in range(len(nums) - 2):
+            if nums[i] > 0:
+                break
+                
             if i > 0 and nums[i] == nums[i - 1]:
                 continue
                 
