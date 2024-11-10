@@ -2,15 +2,16 @@ class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
         ans = []
 
-        def generate(left: int, right: int, path: str) -> None:
-            if len(path) == n * 2:
+        def backtracking(left, right, path) -> None:
+            if len(path) == 2 * n:
                 ans.append(path[:])
                 return
             
             if left < n:
-                generate(left + 1, right, path + "(")
+                backtracking(left + 1, right, path + '(')
             if right < left:
-                generate(left, right + 1, path + ")")
+                backtracking(left, right + 1, path + ')')
         
-        generate(0, 0, "")
+        backtracking(0, 0, "")
         return ans
+            
