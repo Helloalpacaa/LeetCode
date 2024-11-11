@@ -1,5 +1,8 @@
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        if len(intervals) == 0:
+            return 0
+        
         start = []
         end = []
         for interval in intervals:
@@ -8,13 +11,16 @@ class Solution:
         
         start.sort()
         end.sort()
-        
+
+        rooms = 0
         j = 0
-        meetingRooms = 0
-        for i in range(len(start)):
+        for i in range(len(end)):
             if start[i] < end[j]:
-                meetingRooms += 1
+                rooms += 1
             else:
                 j += 1
         
-        return meetingRooms
+        return rooms
+
+        
+        return count
