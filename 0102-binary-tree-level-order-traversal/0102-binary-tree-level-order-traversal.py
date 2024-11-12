@@ -7,16 +7,17 @@
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         ans = []
-        self.traversal(root, ans, 0)
+
+        def dfs(node: TreeNode, depth: int) -> None:
+            if node is None:
+                return
+            
+            if len(ans) <= depth:
+                ans.append([])
+            
+            ans[depth].append(node.val)
+            dfs(node.left, depth + 1)
+            dfs(node.right, depth + 1)
+        
+        dfs(root, 0)
         return ans
-    
-    def traversal(self, node: Optional[TreeNode], ans: List[List[int]], height: int) -> None:
-        if node is None:
-            return
-        
-        if height >= len(ans):
-            ans.append([])
-        
-        ans[height].append(node.val)
-        self.traversal(node.left, ans, height + 1)
-        self.traversal(node.right, ans, height + 1)
