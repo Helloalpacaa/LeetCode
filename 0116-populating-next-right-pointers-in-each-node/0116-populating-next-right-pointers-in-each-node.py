@@ -10,14 +10,15 @@ class Node:
 
 class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
-        queue = deque()
+        if root is None:
+            return root
 
-        if root:
-            queue.append(root)
-        
+        queue = deque()
+        queue.append(root)
+
         while queue:
             size = len(queue)
-            while size > 0:
+            while size:
                 node = queue.popleft()
                 size -= 1
                 node.next = queue[0] if size > 0 else None
@@ -26,5 +27,4 @@ class Solution:
                 if node.right:
                     queue.append(node.right)
                 
-        
         return root
