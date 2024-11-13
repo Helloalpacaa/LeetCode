@@ -7,24 +7,21 @@
 class Solution:
     def largestValues(self, root: Optional[TreeNode]) -> List[int]:
         ans = []
-        queue = deque()
         
-        if root:
-            queue.append(root)
+        def dfs(node: TreeNode, depth: int) -> None:
+            if node is None:
+                return
+            
+            if len(ans) <= depth:
+                ans.append(node.val)
+            
+            if node.val > ans[depth]:
+                ans[depth] = node.val
+            
+            dfs(node.left, depth + 1)
+            dfs(node.right, depth + 1)
+            
+            return
         
-        while queue:
-            size = len(queue)
-            maxValue = -float('inf')
-            while size > 0:
-                tmp = queue.popleft()
-                if tmp.val > maxValue:
-                    maxValue = tmp.val
-                
-                if tmp.left:
-                    queue.append(tmp.left)
-                if tmp.right:
-                    queue.append(tmp.right)
-                size -= 1
-            ans.append(maxValue)
-        
+        dfs(root, 0)
         return ans
