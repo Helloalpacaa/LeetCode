@@ -1,34 +1,32 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        preList = [[] for _ in range(numCourses)]
+        courseList = [[] for _ in range(numCourses)]
         for course, pre in prerequisites:
-            preList[course].append(pre)
-
+            courseList[course].append(pre)
+        
         exploring = set()
         visited = set()
 
         def dfs(course) -> bool:
             if course in exploring:
-                return True
-            
-            if course in visited:
                 return False
             
+            if course in visited:
+                return True
+
             exploring.add(course)
-            
-            for pre in preList[course]:
-                if dfs(pre):
-                    return True
+
+            for pre in courseList[course]:
+                if not dfs(pre):
+                    return False
             
             exploring.remove(course)
             visited.add(course)
 
-            return False
-            
-
-
+            return True
+        
         for course, pre in prerequisites:
-            if dfs(course):
+            if not dfs(course):
                 return False
         
         return True
