@@ -14,5 +14,4 @@ class Solution:
             if s[i] == '0' and reachable > 0:
                 dp[i] = True
         
-        print(dp)
         return dp[n - 1]
