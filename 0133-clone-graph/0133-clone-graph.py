@@ -9,6 +9,8 @@ class Node:
 from typing import Optional
 class Solution:
     def __init__(self):
+        # 建立一个hashmap存储value: node，key: clone
+        # 把1 clone以后去clone它的neighbor 2, 2的neighbor里又会包含1，又回到了1，这时候直接return clone的1不需要再去clone 1以及它的neighbor
         self.visited = {}
 
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
