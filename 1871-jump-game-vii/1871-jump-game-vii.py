@@ -10,6 +10,9 @@ class Solution:
                 reachable += dp[i - minJump]
             if i > maxJump:
                 reachable -= dp[i - maxJump - 1]
-            dp[i] = reachable > 0 and s[i] == '0'
+            
+            if s[i] == '0' and reachable > 0:
+                dp[i] = True
         
+        print(dp)
         return dp[n - 1]
