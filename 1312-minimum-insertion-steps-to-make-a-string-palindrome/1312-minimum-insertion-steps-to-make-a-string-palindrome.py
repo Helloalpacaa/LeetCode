@@ -1,14 +1,16 @@
 class Solution:
     def minInsertions(self, s: str) -> int:
         n = len(s)
-        dp = [[0] * (n + 1) for _ in range(n + 1)]
-        s_reverse = ''.join(reversed(s))
+        # dp[i][j]: minimum number os steps to make s[i: j] palindrome
+        dp = [[0] * n for _ in range(n)]
 
-        for i in range(n):
-            for j in range(n):
-                if s[i] == s_reverse[j]:
-                    dp[i + 1][j + 1] = dp[i][j] + 1
+        for i in range(n - 1, -1, -1):
+            for j in range(i, n):
+                if i == j:
+                    dp[i][j] = 0
+                elif s[i] == s[j]:
+                    dp[i][j] = dp[i + 1][j - 1]
                 else:
-                    dp[i + 1][j + 1] = max(dp[i + 1][j], dp[i][j + 1])
+                    dp[i][j] = min(dp[i + 1][j], dp[i][j - 1]) + 1
         
-        return n - dp[n][n]
+        return dp[0][n - 1]
