@@ -1,11 +1,13 @@
 class Solution:
     def similarPairs(self, words: List[str]) -> int:
         wordsMap = {}
-        count = 0
         for word in words:
-            word = sorted(set(word))
-            word = "".join(word)
+            word = "".join(sorted(set(word)))
             wordsMap[word] = wordsMap.get(word, 0) + 1
-            count = max(count, wordsMap[word])
 
-        return count if count > 1 else 0
+        pairs = 0
+        for count in wordsMap.values():
+            if count > 1:
+                pairs += (count * (count - 1)) // 2
+        
+        return pairs
