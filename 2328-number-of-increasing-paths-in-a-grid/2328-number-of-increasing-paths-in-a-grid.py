@@ -12,15 +12,16 @@ class Solution:
             if dp[i][j] != -1:
                 return dp[i][j]
             
-            last = grid[i][j]
-            dp[i][j] = (1 + dfs(i - 1, j, last) + dfs(i + 1, j, last) + dfs(i, j - 1, last) + dfs(i, j + 1, last)) % mod
+            curr = grid[i][j]
+            dp[i][j] = (1 + dfs(i - 1, j, curr) + dfs(i + 1, j, curr) + dfs(i, j - 1, curr) + dfs(i, j + 1, curr)) % mod
             return dp[i][j]
         
-        count = 0
-        for i in range(m):
-            for j in range(n):
-                count += dfs(i, j, 0)
+        # count = 0
+        # for i in range(m):
+        #     for j in range(n):
+        #         count += dfs(i, j, 0)
         
-        return count
+        # return count
+        return sum(dfs(i, j, -1) for i in range(m) for j in range(n)) % mod
 
         
