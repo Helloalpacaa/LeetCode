@@ -3,15 +3,16 @@ class Solution:
         max_element = max(nums)
         count = 0
 
-        window = {}
+        frequency = 0
         i = 0
         for j in range(len(nums)):
             char = nums[j]
-            window[char] = window.get(char, 0) + 1
-            while max_element in window and window[max_element] >= k:
+            if nums[j] == max_element:
+                frequency += 1
+            while frequency >= k:
                 count += (len(nums) - j)
-                window[nums[i]] -= 1
+                if nums[i] == max_element:
+                    frequency -= 1
                 i += 1
                 
-        
         return count
