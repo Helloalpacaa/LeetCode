@@ -1,32 +1,20 @@
 class Solution:
 
     def __init__(self, w: List[int]):
-        # [1, 3, 8, 9]
-        # [1, 4, 12, 21]
+        # [1, 3]
+        # [1, 4]
+        # pick a random number from [1, 4], chances of it locates to [1] is 1/4, chances it locates to [2, 3, 4] is 3/4
+        # use binary search to find where the random number should be located
         self.prefix_sum = [0] * len(w)
         self.prefix_sum[0] = w[0]
         for i in range(1, len(w)):
             self.prefix_sum[i] = self.prefix_sum[i - 1] + w[i]
-    
-    def binarySearch(self, arr: List[int], target: int) -> int:
-        left = 0
-        right = len(arr) - 1
-        while left <= right:
-            mid = (left + right) // 2
-            if arr[mid] == target:
-                return mid
-            elif arr[mid] < target:
-                left = mid + 1
-            else:
-                right = mid - 1
-        return left
 
     def pickIndex(self) -> int:
+        # pick a random number from [1, self.prefix_sum[-1]]
         rand = random.randint(1, self.prefix_sum[-1])
-        print(rand)
-        index = self.binarySearch(self.prefix_sum, rand)
+        index = bisect_left(self.prefix_sum, rand)
         return index
-    
         
 
 
