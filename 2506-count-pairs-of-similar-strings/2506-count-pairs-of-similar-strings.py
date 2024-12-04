@@ -1,13 +1,14 @@
 class Solution:
     def similarPairs(self, words: List[str]) -> int:
-        wordsMap = {}
+        # for each word, get its sorted str without repeating letters, store it in a hashmap (str, freq)
+        hm = {}
         for word in words:
-            word = "".join(sorted(set(word)))
-            wordsMap[word] = wordsMap.get(word, 0) + 1
-
-        pairs = 0
-        for count in wordsMap.values():
-            if count > 1:
-                pairs += (count * (count - 1)) // 2
+            key = "".join(sorted(set(word)))
+            hm[key] = hm.get(key, 0) + 1
         
+        # iterate the value in the hashmap, count the number of pairs if can form
+        pairs = 0
+        for value in hm.values():
+            pairs += (value * (value - 1)) // 2
+
         return pairs
