@@ -16,13 +16,14 @@ class Solution:
             if arr[mid] == target:
                 return mid
             elif arr[mid] < target:
-                right = mid - 1
-            else:
                 left = mid + 1
+            else:
+                right = mid - 1
         return left
 
     def pickIndex(self) -> int:
         rand = random.randint(1, self.prefix_sum[-1])
+        print(rand)
         index = self.binarySearch(self.prefix_sum, rand)
         return index
     
