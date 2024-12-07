@@ -1,25 +1,20 @@
 class Solution:
     def reverse(self, x: int) -> int:
+        # store the sign of x
         sign = 1
         if x < 0:
             sign = -1
-        
         x = abs(x)
-        # reversed_number = int(str(x)[::-1])
-
-        # if reversed_number < -2**31 or reversed_number > 2**31 - 1:
-        #     return 0
         
-        # return reversed_number * sign
-
-        reversed_number = 0
+        ans = 0
         while x > 0:
             digit = x % 10
             x = x // 10
 
-            if reversed_number > (2**31 - 1) // 10:
+            if ans  > (2**31 - 1) // 10:
                 return 0
-            
-            reversed_number = reversed_number * 10 + digit
+
+            ans = ans * 10 + digit
         
-        return reversed_number * sign
+        return ans * sign
+        
