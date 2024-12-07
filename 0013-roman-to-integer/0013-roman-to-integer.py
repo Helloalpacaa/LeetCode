@@ -4,9 +4,10 @@ class Solution:
 
         ans = 0
         for i in range(len(s)):
-            if i < len(s) - 1 and roman[s[i]] < roman[s[i + 1]]:
-                ans -= roman[s[i]]
+            char = s[i]
+            if i < len(s) - 1 and roman[char] < roman[s[i + 1]]:
+                ans -= roman[char]
             else:
-                ans += roman[s[i]]
+                ans += roman[char]
         
         return ans
