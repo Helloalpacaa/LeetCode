@@ -8,7 +8,9 @@ class Solution:
             elif char == ')':
                 reversed_string = stack.pop()[::-1]
                 stack[-1] += reversed_string
+                # uevoli
             else:
                 stack[-1] += char
-
+        
         return stack[0]
+            
