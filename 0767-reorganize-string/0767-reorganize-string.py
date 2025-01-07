@@ -1,26 +1,34 @@
 class Solution:
     def reorganizeString(self, s: str) -> str:
-        if s is None or len(s) == 1:
-            return s
+        freq = [0] * 26
+        max_freq = 0
+        max_freq_char = s[0]
+
+        for char in s:
+            freq[ord(char) - ord('a')] += 1
+            if freq[ord(char) - ord('a')] > max_freq:
+                max_freq = freq[ord(char) - ord('a')]
+                max_freq_char = char
         
-        # Found the most common character
-        count = Counter(s)
-        heap = [(-freq, char) for char, freq in count.items()]
-        heapq.heapify(heap)
+        if max_freq > (len(s) + 1) // 2:
+            return ""
 
-        prev_freq, prev_char = 0, ''
-        ans = ""
-        while heap:
-            freq, char = heapq.heappop(heap)
-            ans += char
-
-            if prev_freq < 0:
-                heapq.heappush(heap, (prev_freq, prev_char))
-            
-            prev_freq, prev_char = freq + 1, char
+        ans = [""] * len(s)
+        i = 0
+        while max_freq > 0:
+            ans[i] = max_freq_char
+            i += 2
+            max_freq -= 1
         
-        return ans if len(ans) == len(s) else ""
-
-
+        freq[ord(max_freq_char) - ord('a')] = 0
+        i = 1
+        for j in range(26):
+            while freq[j] > 0:
+                ans[i] = chr(j + ord('a'))
+                freq[j] -= 1
+                i += 2
         
+        return "".join(ans)
+
+
 
