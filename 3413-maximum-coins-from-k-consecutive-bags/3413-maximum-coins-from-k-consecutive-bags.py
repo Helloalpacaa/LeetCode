@@ -1,17 +1,19 @@
 class Solution:
     def maximumCoins(self, coins: List[List[int]], k: int) -> int:
+        total = result = i = 0
         coins.sort()
-        ans = 0
-        prefix = [0]
-        vals = []
-        for l, r, c in coins: 
-            prefix.append(prefix[-1] + c*(r-l+1))
-            vals.extend([l+k-1, r])
-            
-        def fn(x): 
-            """Return """
-            i = bisect_right(coins, x, key=lambda x: x[0])-1
-            if i < 0: return 0 
-            return prefix[i] + (min(x, coins[i][1]) - coins[i][0] + 1)*coins[i][2]
-        
-        return max(fn(r) - fn(r-k) for r in sorted(vals))
+        for j in range(len(coins)):
+            l, r, value = coins[j]
+            total += value * (r - l + 1)
+            while coins[j][1] - coins[i][0] > k - 1:
+                excess = coins[j][1] - coins[i][0] + 1 - k
+                result = max(result, total - excess * value)
+                l1, r1, value1 = coins[i]
+                if r1 - l1 + 1 > excess:
+                    total -= value1 * excess
+                    coins[i][0] += excess
+                else:
+                    total -= value1 * (r1 - l1 + 1)
+                    i += 1
+            result = max(result, total)
+        return result
