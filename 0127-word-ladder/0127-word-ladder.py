@@ -1,31 +1,37 @@
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
-        wordSet = set(wordList)
-        if endWord not in wordSet:
-            return 0
-        
+        wordList = set(wordList)
         queue = deque([beginWord])
-        step = 1
-        visited = set([beginWord])
+        visited = set()
+        steps = 0
 
         while queue:
             size = len(queue)
-            for _ in range(size):
+
+            while size:
                 word = queue.popleft()
+
+                if word == endWord:
+                    return steps + 1
+                
                 for i in range(len(word)):
                     for char in string.ascii_lowercase:
                         if char == word[i]:
                             continue
-                        newWord = list(word)
-                        newWord[i] = char
-                        newWord = "".join(newWord)
-                        if newWord == endWord:
-                            return step + 1
-                        if newWord in wordSet and newWord not in visited:
-                            queue.append(newWord)
-                            visited.add(newWord)
-                        
-            step += 1
+
+                        new_word = list(word)
+                        new_word[i] = char
+                        new_word = "".join(new_word)
+                        if new_word in wordList and new_word not in visited:
+                            queue.append(new_word)
+                            visited.add(new_word)
+                
+                size -= 1
+            
+            steps += 1
         
         return 0
 
+
+
+        
