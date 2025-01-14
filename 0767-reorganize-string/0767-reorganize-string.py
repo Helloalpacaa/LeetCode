@@ -21,9 +21,10 @@ class Solution:
             max_freq -= 1
         
         freq[ord(max_freq_char) - ord('a')] = 0
-        i = 1
         for j in range(26):
             while freq[j] > 0:
+                if i >= len(s):
+                    i = 1
                 ans[i] = chr(j + ord('a'))
                 freq[j] -= 1
                 i += 2
