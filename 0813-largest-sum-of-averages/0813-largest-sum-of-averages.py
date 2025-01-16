@@ -15,7 +15,7 @@ class Solution:
         # fill in the dp array
         for k in range(2, k + 1):
             for i in range(k, n + 1):
-                for j in range(1, i):
+                for j in range(k - 1, i):
                     curr_max = dp[j][k - 1] + (prefix_sum[i] - prefix_sum[j]) / (i - j)
                     dp[i][k] = max(dp[i][k], curr_max)
         
