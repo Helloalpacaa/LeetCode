@@ -1,16 +1,18 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        stack = deque()
+        stack = []
 
         for char in s:
-            if char in "([{":
+            if char in "({[":
                 stack.append(char)
             else:
-                if char == ')' and stack and stack[-1] == "(":
-                    stack.pop()
-                elif char == ']' and stack and stack[-1] == '[':
-                    stack.pop()
-                elif char == '}' and stack and stack[-1] == '{':
+                if not stack:
+                    return False
+                elif (
+                    stack[-1] == '(' and char == ')' or
+                    stack[-1] == '{' and char == '}' or 
+                    stack[-1] == '[' and char == ']'
+                    ):
                     stack.pop()
                 else:
                     return False
