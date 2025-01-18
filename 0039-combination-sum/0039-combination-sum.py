@@ -13,6 +13,9 @@ class Solution:
                 return
             
             for i in range(start, n):
+                if total > target:
+                    break
+                    
                 total += candidates[i]
                 path.append(candidates[i])
                 backtracking(i, total, path)
