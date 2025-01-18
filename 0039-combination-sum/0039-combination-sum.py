@@ -1,25 +1,23 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         candidates.sort()
+        n = len(candidates)
         ans = []
 
-        def backtracking(path: List[int], startIdx: int, total: int) -> None:
-            if total > target:
-                return
-            
+        def backtracking(start, total, path) -> None:
             if total == target:
                 ans.append(path[:])
                 return
             
-            for i in range(startIdx, len(candidates)):
-                if total > target:
-                    break
-
-                path.append(candidates[i])
-                total += candidates[i]
-                backtracking(path, i, total)
-                total -= candidates[i]
-                path.pop()
+            if total > target:
+                return
             
-        backtracking([], 0, 0)
+            for i in range(start, n):
+                total += candidates[i]
+                path.append(candidates[i])
+                backtracking(i, total, path)
+                total -= candidates[i]
+                path.remove(path[-1])
+        
+        backtracking(0, 0, [])
         return ans
