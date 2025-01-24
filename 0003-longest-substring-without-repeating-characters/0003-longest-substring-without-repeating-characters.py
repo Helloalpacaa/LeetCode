@@ -1,17 +1,17 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        window = set()
+        last_occur = {}
         longest_substring = 0
 
         left = 0
         for right in range(len(s)):
             char = s[right]
-            while char in window:
-                window.remove(s[left])
-                left += 1
+            if char in last_occur:
+                left = last_occur[char] + 1
+                del last_occur[char]
             
-            window.add(char)
+            last_occur[char] = right
 
             longest_substring = max(longest_substring, right - left + 1)
-        
+            
         return longest_substring
