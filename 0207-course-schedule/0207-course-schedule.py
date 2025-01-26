@@ -10,6 +10,7 @@ class Solution:
 
         while queue:
             pre = queue.popleft()
+            completed += 1
             for course in courseList[pre]:
                 indegree[course] -= 1
                 if indegree[course] == 0:
