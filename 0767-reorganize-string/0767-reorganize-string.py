@@ -1,35 +1,38 @@
 class Solution:
     def reorganizeString(self, s: str) -> str:
-        freq = [0] * 26
+        freq = {}
         max_freq = 0
-        max_freq_char = s[0]
+        char_with_max_freq = s[0]
 
         for char in s:
-            freq[ord(char) - ord('a')] += 1
-            if freq[ord(char) - ord('a')] > max_freq:
-                max_freq = freq[ord(char) - ord('a')]
-                max_freq_char = char
+            freq[char] = freq.get(char, 0) + 1
+            if freq[char] > max_freq:
+                max_freq = freq[char]
+                char_with_max_freq = char
         
-        if max_freq > (len(s) + 1) // 2:
+        n = len(s)
+        if max_freq > (n + 1) // 2:
             return ""
 
-        ans = [""] * len(s)
+        ans = [""] * n
         i = 0
         while max_freq > 0:
-            ans[i] = max_freq_char
+            ans[i] = char_with_max_freq
             i += 2
             max_freq -= 1
+            
         
-        freq[ord(max_freq_char) - ord('a')] = 0
-        for j in range(26):
-            while freq[j] > 0:
-                if i >= len(s):
+        del freq[char_with_max_freq]
+        for char in freq:
+            while freq[char] > 0:
+                if i >= n:
                     i = 1
-                ans[i] = chr(j + ord('a'))
-                freq[j] -= 1
+                ans[i] = char
+                freq[char] -= 1
                 i += 2
-        
+                
         return "".join(ans)
+                
 
 
-
+        
