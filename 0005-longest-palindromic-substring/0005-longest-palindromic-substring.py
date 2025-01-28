@@ -9,17 +9,10 @@ class Solution:
             return s[left + 1 : right]
         
         longest_palindrome = ""
-        longest = 0
         for i in range(n):
-            valid_palindrome = palindrome(i, i)
-            
-            if len(valid_palindrome) > longest:
-                longest_palindrome = valid_palindrome
-                longest = len(valid_palindrome)
-            if i + 1 < n and s[i] == s[i + 1]:
-                valid_palindrome = palindrome(i, i + 1)
-                if len(valid_palindrome) > longest:
-                    longest_palindrome = valid_palindrome
-                    longest = len(valid_palindrome)
+            palindrome1 = palindrome(i, i)
+            palindrome2 = palindrome(i, i + 1)
+            longest_palindrome = palindrome1 if len(palindrome1) > len(longest_palindrome) else longest_palindrome
+            longest_palindrome = palindrome2 if len(palindrome2) > len(longest_palindrome) else longest_palindrome
 
         return longest_palindrome
