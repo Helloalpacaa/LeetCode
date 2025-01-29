@@ -8,37 +8,18 @@ class Node:
 """
 
 class Solution:
-    
+    visited = {}
+
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        # First ietration, make a copy node of each original node, insert the copy node into linked list just follow the original node
-        curr = head
-        while curr:
-            copy = Node(curr.val, None, None)
-            n = curr.next
-            copy.next = n
-            curr.next = copy
-            curr = curr.next.next
+        if head is None:
+            return None
         
-        # Second ietration, assign the random pointer to the copy node
-        curr = head
-        while curr:
-            copy = curr.next
-            random = curr.random.next if curr.random else None
-            copy.random = random
-            curr = curr.next.next
+        if head in self.visited:
+            return self.visited[head]
         
-        # extract the copy linked list and retrive the original linked list
-        curr = head
-        dummy = Node(0)
-        copy = dummy
-        while curr:
-            copy.next = curr.next
-            curr.next = curr.next.next
-            copy = copy.next
-            curr = curr.next
-        
-        return dummy.next
-        
-        
-        
-            
+        copy = Node(head.val)
+        self.visited[head] = copy
+        copy.next = self.copyRandomList(head.next)
+        copy.random = self.copyRandomList(head.random)
+
+        return copy
