@@ -12,8 +12,8 @@ class Solution:
                 return
             
             for i in range(start, len(digits)):
-                digit = digits[i]
-                word = digits_map[ord(digit) - ord('0')]
+                digit = int(digits[i])
+                word = digits_map[digit]
 
                 for char in word:
                     backtracking(i + 1, path + char)
