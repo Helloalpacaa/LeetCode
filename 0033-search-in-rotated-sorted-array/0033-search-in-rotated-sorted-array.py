@@ -8,18 +8,18 @@ class Solution:
 
             if target == nums[mid]:
                 return mid
-            elif nums[left] > nums[right]:
-                if nums[left] <= nums[mid]:
-                    if nums[left] <= target < nums[mid]:
+            elif nums[left] > nums[right]: # If the array is rotated
+                if nums[left] <= nums[mid]: # If left part is rotated
+                    if nums[left] <= target < nums[mid]: # If the target is in the left part
                         right = mid - 1
                     else:
                         left = mid + 1
-                else:
-                    if nums[mid] < target <= nums[right]:
+                else: # If right part is rotated
+                    if nums[mid] < target <= nums[right]: # If the target is in the right part
                         left = mid + 1
                     else:
                         right = mid - 1
-            else:
+            else: # The array is not rotated, use the normal binary search
                 if nums[mid] > target:
                     right = mid - 1
                 else:
