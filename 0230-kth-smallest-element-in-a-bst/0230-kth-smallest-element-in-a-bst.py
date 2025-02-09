@@ -7,19 +7,18 @@
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         arr = []
-        ans = root.val
+        self.ans = None
         
         def traverse(node: Optional) -> None:
-            nonlocal ans
-            if node is None:
+            if node is None or self.ans is not None:
                 return
             
             traverse(node.left)
             arr.append(node.val)
             if len(arr) == k:
-                ans = arr[-1]
+                self.ans = arr[-1]
                 return
             traverse(node.right)
         
         traverse(root)
-        return ans
+        return self.ans
