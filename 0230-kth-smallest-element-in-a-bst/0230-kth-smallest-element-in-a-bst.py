@@ -31,8 +31,11 @@ class Solution:
                 stack.append(root)
                 root = root.left
         
-            node = stack.pop()
-            arr.append(node.val)
-            root = node.right
+            root = stack.pop()
+            k -= 1
+            if k == 0:
+                break
+            arr.append(root.val)
+            root = root.right
         
-        return arr[k - 1]
+        return root.val
