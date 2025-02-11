@@ -6,14 +6,19 @@
 #         self.right = right
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        stack = []
+        prev = float('-inf')
 
-        def traversal(node: Optional[TreeNode], low: int, high: int) -> bool:
-            if node is None:
-                return True
+        while root or stack:
+            while root:
+                stack.append(root)
+                root = root.left
             
-            if node.val <= low or node.val >= high:
+            root = stack.pop()
+            if root.val <= prev:
                 return False
-            
-            return traversal(node.left, low, node.val) and traversal(node.right, node.val, high)
+            prev = root.val
+            root = root.right
         
-        return traversal(root, float('-inf'), float('inf'))
+        return True
+        
