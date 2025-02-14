@@ -6,18 +6,21 @@
 #         self.right = right
 class Solution:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
-        self.maxPath = float('-inf')
+        if root is None:
+            return 0
 
-        def traversal(node: Optional[TreeNode]) -> int:
+        self.maxPath = float("-inf")
+
+        def dfs(node: Optional[TreeNode]) -> int:
             if node is None:
                 return 0
             
-            left = max(traversal(node.left), 0)
-            right = max(traversal(node.right), 0)
+            left = dfs(node.left)
+            right = dfs(node.right)
 
-            self.maxPath = max(self.maxPath, node.val + left + right)
+            self.maxPath = max(self.maxPath, node.val + max(left, 0) + max(right, 0))
 
-            return max(left, right) + node.val
+            return node.val + max(left, right, 0)
         
-        traversal(root)
+        dfs(root)
         return self.maxPath
