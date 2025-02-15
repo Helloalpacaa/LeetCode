@@ -3,8 +3,15 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        n = len(nums)
-        for _ in range(n):
-            for i in range(n - 1):
-                if nums[i] > nums[i + 1]:
-                    nums[i], nums[i + 1] = nums[i + 1], nums[i]
+        # Count occurrences of each color
+        count = [0] * 3
+        for num in nums:
+            count[num] += 1
+        
+        # Fill the array with the right number of each color
+        index = 0
+        for i in range(3):
+            while count[i] > 0:
+                nums[index] = i
+                index += 1
+                count[i] -= 1
