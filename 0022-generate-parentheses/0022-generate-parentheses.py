@@ -2,16 +2,17 @@ class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
         ans = []
 
-        def generate(left, right, path) -> None:
-            if len(path) == n * 2:
-                ans.append(path[:])
-                return
+        def generate(left, right, parenthesis) -> None:
+            if len(parenthesis) == n * 2:
+                ans.append(parenthesis)
             
             if left < n:
-                generate(left + 1, right, path + '(')
+                generate(left + 1, right, parenthesis + "(")
             
             if right < left:
-                generate(left, right + 1, path + ')')
+                generate(left, right + 1, parenthesis + ")")
         
         generate(0, 0, "")
         return ans
+            
+
