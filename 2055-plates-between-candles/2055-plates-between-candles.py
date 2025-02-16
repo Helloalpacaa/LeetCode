@@ -12,9 +12,8 @@ class Solution:
         ans = []
         for query in queries:
             left = bisect.bisect_left(arr, query[0])
-            right = bisect.bisect(arr, query[1]) - 1
-            # print(left, right, arr)
-            if left >right or left >= len(arr) or right < 0:
+            right = bisect.bisect_right(arr, query[1]) - 1
+            if left > right or left >= len(arr) or right < 0:
                 ans.append(0)
             else:
                 ans.append(prefix_sum[right] - prefix_sum[left])
