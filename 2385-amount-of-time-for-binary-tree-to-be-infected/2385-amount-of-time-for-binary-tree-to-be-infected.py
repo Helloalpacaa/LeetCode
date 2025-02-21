@@ -6,35 +6,36 @@
 #         self.right = right
 class Solution:
     def amountOfTime(self, root: Optional[TreeNode], start: int) -> int:
-        # Build graph
         graph = defaultdict(list)
 
-        def buildGraph(node: Optional[TreeNode], parent: Optional[TreeNode]) -> None:
-            if node is None:
+        def buildgraph(child: Optional[TreeNode], parent: Optional[TreeNode]) -> None:
+            if child is None:
                 return
+            
+            if parent:
+                graph[parent.val].append(child.val)
+                graph[child.val].append(parent.val)
 
-            graph[parent.val].append(node.val)
-            graph[node.val].append(parent.val)
-
-            buildGraph(node.left, node)
-            buildGraph(node.right, node)
+            buildgraph(child.left, child)
+            buildgraph(child.right, child)
         
-        buildGraph(root.left, root)
-        buildGraph(root.right, root)
-        print(graph)
+        buildgraph(root, None)
 
         queue = deque([start])
         visited = set([start])
-        time = -1
+        minutes = -1
 
         while queue:
-            time += 1
             for _ in range(len(queue)):
-                current = queue.popleft()
-
-                for adjacent in graph[current]:
-                    if adjacent not in visited:
-                        queue.append(adjacent)
-                        visited.add(adjacent)
+                current_val = queue.popleft()
+                
+                for adj in graph[current_val]:
+                    if adj not in visited:
+                        queue.append(adj)
+                        visited.add(adj)
             
-        return time
+            minutes += 1
+        
+        return minutes
+
+
