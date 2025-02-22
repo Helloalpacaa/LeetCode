@@ -17,8 +17,6 @@ class Solution:
                 
                 count += j - i - 1
             
-            print(left, right, mid, count)
-            
             if count < k: # 完全不满足条件的情况，count必须大于等于k，太小的话说明mid的值太小，需要加大left
                 left = mid + 1
             else:
