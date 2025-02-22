@@ -14,6 +14,8 @@ class Solution:
             
             traverse(node.left)
             arr.append(node.val)
+            if len(arr) >= k:
+                return
             traverse(node.right)
         
         traverse(root)
