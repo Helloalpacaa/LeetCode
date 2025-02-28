@@ -3,9 +3,9 @@ class Solution:
         count = Counter(s)
         sorted_count = dict(sorted(count.items(), key=lambda item:-item[1]))
 
-        ans = []
+        ans = ""
         for key, value in sorted_count.items():
             for _ in range(value):
-                ans.append(key)
+                ans += key
         
-        return "".join(ans)
+        return ans
