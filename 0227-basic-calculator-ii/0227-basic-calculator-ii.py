@@ -25,6 +25,5 @@ class Solution:
                 operator = s[i]
                 num = 0
             
-        
         return sum(stack)
                 
