@@ -3,10 +3,14 @@ class Solution:
         stack = []
 
         for asteroid in asteroids:
-            if stack and stack[-1] > 0 and asteroid < 0:
-                tmp = asteroid
-                while stack and abs(tmp) >= stack[-1]:
-                    tmp += stack.pop()
+            while stack and stack[-1] > 0 and asteroid < 0:
+                if abs(asteroid) > stack[-1]:
+                    stack.pop()
+                elif abs(asteroid) == stack[-1]:
+                    stack.pop()
+                    break
+                else:
+                    break
             else:
                 stack.append(asteroid)
         
