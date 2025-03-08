@@ -16,10 +16,10 @@ class Solution:
         
         prev.next = None
         
-        l1 = self.sortList(head)
-        l2 = self.sortList(slow)
+        left = self.sortList(head)
+        right = self.sortList(slow)
 
-        return self.merge(l1, l2)
+        return self.merge(left, right)
     
     def merge(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         dummy = ListNode(0)
