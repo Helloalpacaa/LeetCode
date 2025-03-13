@@ -10,14 +10,13 @@ class Solution:
 
         def traverse(node: Optional[TreeNode]) -> int:
             if node is None:
-                return -1
+                return 0
             
-            left = traverse(node.left) + 1
-            right = traverse(node.right) + 1
-            # print(node.val, left, right)
+            left = traverse(node.left)
+            right = traverse(node.right)
             self.diameter = max(self.diameter, left + right)
 
-            return max(left, right)
+            return max(left, right) + 1
         
         traverse(root)
         return self.diameter
