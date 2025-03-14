@@ -2,11 +2,9 @@ class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         start = []
         end = []
-
         for interval in intervals:
             start.append(interval[0])
             end.append(interval[1])
-        
         start.sort()
         end.sort()
 
