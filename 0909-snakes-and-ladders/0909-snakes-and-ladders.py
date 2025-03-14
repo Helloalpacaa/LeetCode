@@ -18,17 +18,14 @@ class Solution:
 
             for i in range(1, 7):
                 next_pos = pos + i
-                
-                if next_pos == n * n:
-                    return moves + 1
-                
-                if next_pos > n * n:
-                    break
-                
+
                 row, col = get_coordinates(next_pos)
 
                 if board[row][col] != -1:
                     next_pos = board[row][col]
+                
+                if next_pos == n * n:
+                    return moves + 1
                 
                 if next_pos not in visited:
                     queue.append((next_pos, moves + 1))
