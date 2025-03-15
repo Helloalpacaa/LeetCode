@@ -10,17 +10,18 @@ class Solution:
             slow = slow.next
             fast = fast.next.next
         
-        prev, slow, prev.next = slow, slow.next, None
-        
-        while slow:
-            slow.next, prev, slow = prev, slow, slow.next
-        
+        prev, curr = None, slow
+        while curr:
+            next_ = curr.next
+            curr.next = prev
+            prev, curr = curr, next_
+
         tail = prev
-        while tail:
+
+        while head and tail:
             if head.val != tail.val:
                 return False
             head = head.next
             tail = tail.next
         
         return True
-            
