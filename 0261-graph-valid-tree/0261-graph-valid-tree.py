@@ -1,5 +1,8 @@
 class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        if len(edges) < n - 1:
+            return False
+            
         father = [i for i in range(n)]
 
         def find(u: int) -> int:
