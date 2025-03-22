@@ -4,15 +4,19 @@ class Solution:
         for src, dst in tickets:
             graph[src].append(dst)
         
-        for src in graph:
+        for src in graph.keys():
             graph[src].sort(reverse=True)
         
+        print(graph)
+        
         route = []
-        
-        def dfs(airport):
+
+        def traverse(airport):
             while graph[airport]:
-                dfs(graph[airport].pop())
-            route.append(airport)
+                traverse(graph[airport].pop())
+            
+            route.append(airport) # only add airports to the result once we’ve exhausted all paths from them
         
-        dfs("JFK")
+        traverse("JFK")
         return route[::-1]
+
