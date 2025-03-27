@@ -1,24 +1,24 @@
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
         counter = Counter(t)
-        n = len(counter)
-        match = 0
-        i = 0
+        matched = 0
         ans = ""
+        left = 0
+
+        for right in range(len(s)):
+            if s[right] in counter:
+                counter[s[right]] -= 1
+                if counter[s[right]] == 0:
+                    matched += 1
+            
+            while matched == len(counter):
+                if ans == "" or right - left + 1 < len(ans):
+                    ans = s[left: right + 1]
+                if s[left] in counter:
+                    counter[s[left]] += 1
+                    if counter[s[left]] > 0:
+                        matched -= 1
+                left += 1
         
-        for j in range(len(s)):
-            if s[j] in counter:
-                counter[s[j]] -= 1
-                if counter[s[j]] == 0:
-                    match += 1
-            
-            while match == len(counter):
-                if ans == "" or j - i + 1 < len(ans):
-                    ans = s[i: j + 1]
-                if s[i] in counter:
-                    counter[s[i]] += 1
-                    if counter[s[i]] > 0:
-                        match -= 1
-                i += 1
-            
         return ans
+                
