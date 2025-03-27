@@ -8,16 +8,16 @@ class Solution:
         min_heap = []
         for i in range(len(lists)):
             if lists[i]:
-                heapq.heappush(min_heap, (lists[i].val, i, lists[i]))
+                head = lists[i]
+                heapq.heappush(min_heap, (head.val, i, head))
         
-        dummy = ListNode(0)
+        dummy = ListNode()
         curr = dummy
         while min_heap:
             value, index, node = heapq.heappop(min_heap)
-            curr.next = ListNode(value)
+            curr.next = node
             curr = curr.next
-
             if node.next:
                 heapq.heappush(min_heap, (node.next.val, index, node.next))
-
+        
         return dummy.next
