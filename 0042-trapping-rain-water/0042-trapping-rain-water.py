@@ -8,7 +8,6 @@ class Solution:
                 base = height[monotonic_stack.pop()]
                 if monotonic_stack:
                     h = min(height[monotonic_stack[-1]], height[i])
-                    # print(monotonic_stack[-1], i, base, (i - monotonic_stack[-1] - 1) * (h - base))
                     ans += (i - monotonic_stack[-1] - 1) * (h - base)
             monotonic_stack.append(i)
         
