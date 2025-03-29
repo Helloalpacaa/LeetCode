@@ -7,11 +7,9 @@ class Solution:
             word = "".join(sorted(word))
             group[word].append(original)
         
-        print(group)
         ans = []
         for key in group:
-            ans.append([])
-            ans[-1] = group[key]
+            ans.append(group[key])
         
         return ans
 
