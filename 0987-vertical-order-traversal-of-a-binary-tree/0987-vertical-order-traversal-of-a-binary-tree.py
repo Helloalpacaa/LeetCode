@@ -11,9 +11,10 @@ class Solution:
         
         while queue:
             col, row, node = queue.popleft()
-            if node:
-                nodes.append((col, row, node.val))
+            nodes.append((col, row, node.val))
+            if node.left:
                 queue.append((col - 1, row + 1, node.left))
+            if node.right:
                 queue.append((col + 1, row + 1, node.right))
         
         col_map = defaultdict(list)
