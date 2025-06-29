@@ -7,16 +7,14 @@
 class Solution:
     def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
         nodes = [] # list of (col, row, value)
+        queue = deque([(0, 0, root)])
         
-        def dfs(node: Optional[TreeNode], row: int, col: int) -> None:
-            if node is None:
-                return
-            
-            nodes.append((col, row, node.val))
-            dfs(node.left, row + 1, col - 1)
-            dfs(node.right, row + 1, col + 1)
-        
-        dfs(root, 0, 0)
+        while queue:
+            col, row, node = queue.popleft()
+            if node:
+                nodes.append((col, row, node.val))
+                queue.append((col - 1, row + 1, node.left))
+                queue.append((col + 1, row + 1, node.right))
         
         col_map = defaultdict(list)
         for col, row, value in sorted(nodes):
