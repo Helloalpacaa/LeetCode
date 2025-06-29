@@ -8,6 +8,7 @@ class MovingAverage:
     def next(self, val: int) -> float:
         if len(self.moving_array) >= self.size:
             self.total -= self.moving_array.popleft()
+            
         self.moving_array.append(val)
         self.total += val
         return self.total / len(self.moving_array)
