@@ -20,8 +20,6 @@ class Solution:
                 ans = node.val
                 diff = abs(node.val - target)
             
-            
-            
             if node.val > target:
                 traverse(node.left)
             else:
