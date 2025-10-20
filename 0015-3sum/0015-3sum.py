@@ -7,14 +7,16 @@ class Solution:
         for i in range(n - 2):
             if i > 0 and nums[i] == nums[i - 1]:
                 continue
+            if nums[i] > 0:
+                break
             for j in range(i + 1, n - 1):
                 if j > i + 1 and nums[j] == nums[j - 1]:
                     continue
                 two_sum = nums[i] + nums[j]
                 target = 0 - two_sum
 
-                if target < nums[j + 1] or target > nums[n - 1]:
-                    continue
+                if two_sum > 0:
+                    break
 
                 left = j + 1
                 right = n - 1
