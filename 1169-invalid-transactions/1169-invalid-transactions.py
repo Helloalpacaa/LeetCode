@@ -1,31 +1,25 @@
 class Solution:
     def invalidTransactions(self, transactions: List[str]) -> List[str]:
-        invalid = set()
-        groups = defaultdict(list)
-        for transaction in transactions:
-            name, time, amount, city = transaction.split(",")
-            groups[name].append([int(time), int(amount), city, transaction])
-        
-        for name, trans in groups.items():
-            trans.sort(key=lambda x:x[0])
+        parsed = []
+        for t in transactions:
+            name, time, amount, city = t.split(',')
+            parsed.append((name, int(time), int(amount), city))
 
-            for i in range(len(trans)):
-                time_i, amount_i, city_i, raw_i = trans[i]
+        n = len(transactions)
+        invalid = [False] * n
 
-                if amount_i > 1000:
-                    invalid.add(raw_i)
-                
-                j = i - 1
-                while j >= 0 and time_i - trans[j][0] <= 60 and city_i != trans[j][2]:
-                    invalid.add(raw_i)
-                    invalid.add(trans[j][3])
-                    j -= 1
-                
-                j = i + 1
-                while j < len(trans) and trans[j][0] - time_i <= 60 and city_i != trans[j][2]:
-                    invalid.add(raw_i)
-                    invalid.add(trans[j][3])
-                    j += 1
-        
-        return list(invalid)
-                
+        # Compare all pairs with same name
+        for i in range(n):
+            name_i, time_i, amount_i, city_i = parsed[i]
+            if amount_i > 1000:
+                invalid[i] = True
+
+            for j in range(n):
+                if i == j:
+                    continue
+                name_j, time_j, amount_j, city_j = parsed[j]
+                if name_i == name_j and city_i != city_j and abs(time_i - time_j) <= 60:
+                    invalid[i] = True
+                    invalid[j] = True
+
+        return [transactions[i] for i in range(n) if invalid[i]]
