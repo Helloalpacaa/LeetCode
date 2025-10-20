@@ -13,10 +13,10 @@ class Solution:
                 if j > i + 1 and nums[j] == nums[j - 1]:
                     continue
                 two_sum = nums[i] + nums[j]
-                target = 0 - two_sum
-
                 if two_sum > 0:
                     break
+
+                target = -two_sum
 
                 left = j + 1
                 right = n - 1
