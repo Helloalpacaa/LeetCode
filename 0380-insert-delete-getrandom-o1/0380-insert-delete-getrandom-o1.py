@@ -21,16 +21,13 @@ class RandomizedSet:
             return False
         
         index = self.hashmap[val]
-        # print(self.hashmap, val)
         del self.hashmap[val]
-        # print(self.hashmap, val)
         last_index = len(self.arr) - 1
         last_element = self.arr[last_index]
         if last_index != index:
             self.arr[index] = last_element
             self.hashmap[last_element] = index
         self.arr.pop()
-        # print(self.hashmap, val)
 
         return True
         
