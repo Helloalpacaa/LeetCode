@@ -1,29 +1,38 @@
 class Solution:
     def decodeString(self, s: str) -> str:
-        # s = "32[a157[bc]]"
-        
+        res = ""
         stack = []
-        curr_num = 0
-        curr_str = ""
 
-        for char in s:
-            if char.isdigit():
-                curr_num = curr_num * 10 + int(char)
-            elif char == '[':
-                stack.append((curr_str, curr_num))
-                curr_num = 0
-                curr_str = ""
-            elif char == ']':
-                prev_str, num = stack.pop()
-                curr_str = prev_str + curr_str * num
+        i = 0
+        while i < len(s):
+            c = s[i]
+            if c.isdigit():
+                if stack and stack[-1].isdigit():
+                    stack[-1] = str(int(stack[-1]) * 10 + int(c))
+                else:
+                    stack.append(c)
+            elif c == '[':
+                stack.append("")
+            elif c == ']':
+                word = stack.pop()
+                repeat = int(stack.pop())
+                new_word = ""
+                for _ in range(repeat):
+                    new_word += word
+                if stack:
+                    stack[-1] += new_word
+                else:
+                    res += new_word
             else:
-                curr_str += char
-        
-        return curr_str
-
-
-
-
-        
+                if stack:
+                    stack[-1] += c
+                else:
+                    res += c
+                # print(i, c, stack)
+                
             
+            i += 1
+        
+        return res
+                
             
