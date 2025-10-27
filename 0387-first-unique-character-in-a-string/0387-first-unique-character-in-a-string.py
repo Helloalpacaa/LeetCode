@@ -1,10 +1,9 @@
 class Solution:
     def firstUniqChar(self, s: str) -> int:
         count = Counter(s)
-        index = -1
 
-        for i in range(len(s) - 1, -1, -1):
-            if count[s[i]] == 1:
-                index = i
+        for i, c in enumerate(s):
+            if count[c] == 1:
+                return i
         
-        return index
+        return -1
