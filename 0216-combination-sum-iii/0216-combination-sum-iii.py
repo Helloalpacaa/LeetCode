@@ -8,6 +8,9 @@ class Solution:
                 res.append(path.copy())
                 return
             
+            if total >= n or used_numbers >= k:
+                return
+            
             for i in range(num, 10):
                 if not used[i]:
                     used[i] = True
