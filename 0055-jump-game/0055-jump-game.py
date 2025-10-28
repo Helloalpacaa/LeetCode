@@ -1,7 +1,7 @@
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        if len(nums) == 1:
-            return True
+        # if len(nums) == 1:
+        #     return True
 
         target = len(nums) - 1
         coverage = 0
