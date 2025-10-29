@@ -3,21 +3,22 @@ class Solution:
         n = len(edges)
         father = [i for i in range(n + 1)]
 
-        def find(u: int) -> int:
+        def find(u) -> int:
             if u != father[u]:
                 father[u] = find(father[u])
             return father[u]
         
-        def union(u: int, v: int) -> None:
+        def join(u, v) -> None:
             u = find(u)
             v = find(v)
             if u != v:
                 father[v] = u
         
-        ans = []
+        res = []
         for u, v in edges:
-            if find(u) == find(v):
-                ans = [u, v]
-            union(u, v)
+            if find(u) != find(v):
+                join(u, v)
+            else:
+                res = [u, v]
         
-        return ans
+        return res
