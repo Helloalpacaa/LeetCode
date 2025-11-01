@@ -1,17 +1,28 @@
 class ZigzagIterator:
     def __init__(self, v1: List[int], v2: List[int]):
         self.queue = deque()
-        p1, p2 = 0, 0
-        while p1 < len(v1) or p2 < len(v2):
-            if p1 < len(v1):
-                self.queue.append(v1[p1])
-                p1 += 1
-            if p2 < len(v2):
-                self.queue.append(v2[p2])
-                p2 += 1
+        # p1, p2 = 0, 0
+        # while p1 < len(v1) or p2 < len(v2):
+        #     if p1 < len(v1):
+        #         self.queue.append(v1[p1])
+        #         p1 += 1
+        #     if p2 < len(v2):
+        #         self.queue.append(v2[p2])
+        #         p2 += 1
+        if v1:
+            self.queue.append((v1, 0))
+        if v2:
+            self.queue.append((v2, 0))
+
+        # 优化的写法，适用于有k个Iterator的情况
+
 
     def next(self) -> int:
-        return self.queue.popleft()
+        v, i = self.queue.popleft()
+        res = v[i]
+        if i + 1 < len(v):
+            self.queue.append((v, i + 1))
+        return res
         
     def hasNext(self) -> bool:
         return len(self.queue) > 0
