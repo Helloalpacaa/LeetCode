@@ -1,35 +1,26 @@
 class Solution:
     def minCostConnectPoints(self, points: List[List[int]]) -> int:
         n = len(points)
-        edges = []
-        for i in range(n):
-            for j in range(i + 1, n):
-                x1, y1, x2, y2 = points[i][0], points[i][1], points[j][0], points[j][1]
-                distance = abs(x1 - x2) + abs(y1 - y2)
-                heapq.heappush(edges, (distance, i, j))
-        
-        # print(edges)
-        parent = [i for i in range(n)]
+        min_heap = [] # use a min-heap to pop up the min manhattan distance
+        heapq.heappush(min_heap, (0, 0)) # (0, 0) represents the manhattan distance and the index, st first it's 0
+        visited = set() # record the points we have visited
+        min_cost = 0
 
-        def find(u):
-            if u != parent[u]:
-                parent[u] = find(parent[u])
-            return parent[u]
-        
-        def join(u, v):
-            u = find(u)
-            v = find(v)
-            if u != v:
-                parent[v] = u
-        
-        cost = 0
-        while edges:
-            dist, u, v = heapq.heappop(edges)
-            if find(u) == find(v):
+        while len(visited) < n:
+            cost, point = heapq.heappop(min_heap)
+            if point in visited:
                 continue
-            
-            join(u, v)
-            cost += dist
-            
-        return cost
+            visited.add(point)
+            min_cost += cost
+
+            for next_point in range(n): # get the index of all the other unvisited points
+                if next_point not in visited:
+                    x1, y1 = points[point][0], points[point][1]
+                    x2, y2 = points[next_point][0], points[next_point][1]
+                    manhattan_distance = abs(x1 - x2) + abs(y1 - y2)
+                    heapq.heappush(min_heap, (manhattan_distance, next_point)) 
+                    # we need to push a tuple with manhattan_distance at first, so that the heap is sorted by manhattan_distance
+        
+        return min_cost
+
 
