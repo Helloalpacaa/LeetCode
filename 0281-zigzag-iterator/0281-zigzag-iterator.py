@@ -15,6 +15,9 @@ class ZigzagIterator:
             self.queue.append((v2, 0))
 
         # 优化的写法，适用于有k个Iterator的情况
+        # for v in vectors:
+        #     if v:
+        #         self.queue.append((v, 0))
 
 
     def next(self) -> int:
