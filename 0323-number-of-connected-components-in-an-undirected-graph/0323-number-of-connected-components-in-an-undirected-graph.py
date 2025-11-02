@@ -1,22 +1,22 @@
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
-        father = [i for i in range(n)]
+        parent = [i for i in range(n)]
 
-        def join(u, v) -> None:
+        def find(u) -> int:
+            if u != parent[u]:
+                parent[u] = find(parent[u])
+            return parent[u]
+        
+        def join(u, v):
             u = find(u)
             v = find(v)
             if u != v:
-                father[v] = u
+                parent[v] = u
         
-        def find(u) -> int:
-            if father[u] != u:
-                father[u] = find(father[u])
-            return father[u]
-        
-        count = n
+        components = n
         for u, v in edges:
             if find(u) != find(v):
-                count -= 1
+                components -= 1
                 join(u, v)
         
-        return count
+        return components
