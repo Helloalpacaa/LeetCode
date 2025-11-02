@@ -22,7 +22,8 @@ class Solution:
             return True
         
         for course, pre in prerequisites:
-            if not dfs(pre):
-                return False
+            if status[pre] == 0:
+                if not dfs(pre):
+                    return False
         
         return True
