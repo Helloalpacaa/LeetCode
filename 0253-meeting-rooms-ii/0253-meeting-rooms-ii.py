@@ -1,19 +1,23 @@
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        # start : [0, 5, 15]
+        # end:    [10,20,30]
         start = []
         end = []
-        for interval in intervals:
-            start.append(interval[0])
-            end.append(interval[1])
+        for s, e in intervals:
+            start.append(s)
+            end.append(e)
+        
         start.sort()
         end.sort()
-
-        rooms = 0
-        j = 0
-        for i in range(len(start)):
+        i, j = 0, 0
+        count = 0
+        while i < len(start):
             if start[i] < end[j]:
-                rooms += 1
+                count += 1
             else:
                 j += 1
+            i += 1
         
-        return rooms
+        return count
+        
