@@ -2,37 +2,39 @@ class Solution:
     def snakesAndLadders(self, board: List[List[int]]) -> int:
         n = len(board)
         
-        def get_coordinates(points) -> (int, int):
+        def num_to_index(points: int) -> (int, int):
+            # i = 5, j = 0 -> 1, m = n = sqrt(36) = 6
             points -= 1
             row = n - 1 - points // n
-            col = points % n if (n - 1 - row) % 2 == 0 else n - 1 - points % n
+            col = points % n if( n - 1 - row) % 2 == 0 else n - 1 - points % n
 
-            return (row, col)
+            return row, col
         
-        queue = deque([(1, 0)])
-        visited = set([1])
+        queue = deque([1])
+        visited = {1}
+        steps = 0
 
         while queue:
-            points, steps = queue.popleft()
+            for _ in range(len(queue)):
+                points = queue.popleft()
 
-            for i in range(1, 7):
-                next_points = points + i
-                row, col = get_coordinates(next_points)
-
-                if board[row][col] != -1:
-                    next_points = board[row][col]
-
-                if next_points == n * n:
-                    return steps + 1
+                if points == n * n:
+                    return steps
                 
-                if next_points > n * n:
-                    break
+                # print(points)
 
-                if next_points not in visited:
-                    queue.append([next_points, steps + 1])
-                    visited.add(next_points)
-        
-        return -1
+                for nxt in range(points + 1, min(points + 6, n * n) + 1):
+                    ni, nj = num_to_index(nxt)
+                    val = board[ni][nj] if board[ni][nj] != -1 else nxt
+
+                    if val not in visited:
+                        queue.append(val)
+                        visited.add(val)
             
+            steps += 1
+
+        return -1
+
+
 
 
