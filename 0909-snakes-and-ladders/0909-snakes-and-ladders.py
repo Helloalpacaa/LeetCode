@@ -18,12 +18,15 @@ class Solution:
             for _ in range(len(queue)):
                 points = queue.popleft()
 
-                if points == n * n:
-                    return steps
+                # if points == n * n:
+                #     return steps
 
                 for nxt in range(points + 1, min(points + 6, n * n) + 1):
                     ni, nj = num_to_index(nxt)
                     val = board[ni][nj] if board[ni][nj] != -1 else nxt
+
+                    if val == n * n:
+                        return steps + 1
 
                     if val not in visited:
                         queue.append(val)
