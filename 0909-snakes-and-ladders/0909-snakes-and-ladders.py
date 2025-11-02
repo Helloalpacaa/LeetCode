@@ -20,8 +20,6 @@ class Solution:
 
                 if points == n * n:
                     return steps
-                
-                # print(points)
 
                 for nxt in range(points + 1, min(points + 6, n * n) + 1):
                     ni, nj = num_to_index(nxt)
