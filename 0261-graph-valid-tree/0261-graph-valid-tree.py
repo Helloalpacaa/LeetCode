@@ -1,6 +1,6 @@
 class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
-        if len(edges) >= n or len(edges) < n - 1:
+        if len(edges) != n - 1:
             return False
         
         parent = [i for i in range(n)]
