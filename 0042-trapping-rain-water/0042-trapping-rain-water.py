@@ -1,14 +1,17 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
-        monotonic_stack = []
-        ans = 0
-
-        for i in range(len(height)):
-            while monotonic_stack and height[i] > height[monotonic_stack[-1]]:
-                base = height[monotonic_stack.pop()]
-                if monotonic_stack:
-                    h = min(height[monotonic_stack[-1]], height[i])
-                    ans += (i - monotonic_stack[-1] - 1) * (h - base)
-            monotonic_stack.append(i)
+        # monotonic stack
+        # only store elements that smaller than the top of the stack, and pop it when see a larger value
+        stack = []
+        res = 0
+        for i, h in enumerate(height):
+            while stack and height[stack[-1]] < height[i]:
+                base = height[stack.pop()]
+                if stack:
+                    left = stack[-1]
+                    area = (i - left - 1) * (min(height[left], height[i]) - base)
+                    res += area
+            stack.append(i)
         
-        return ans
+        return res
+            
