@@ -5,8 +5,6 @@ class Solution:
             name, time, amount, city = transaction.split(",")
             groups[name].append((int(time), int(amount), city, i, transaction))
         
-        print(groups)
-        
         invalid = []
         for name, group in groups.items():
             n = len(group)
