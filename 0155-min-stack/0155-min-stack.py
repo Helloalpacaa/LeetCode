@@ -9,14 +9,11 @@ class MinStack:
 
     def __init__(self):
         self.head = None
-
+        
 
     def push(self, val: int) -> None:
-        if self.head is None:
-            self.head = Node(val, val, None)
-        else:
-            new_node = Node(val, min(val, self.head.min), self.head)
-            self.head = new_node
+        node = Node(val, min(val, self.head.min) if self.head else val, self.head)
+        self.head = node
         
 
     def pop(self) -> None:
