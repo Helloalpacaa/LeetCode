@@ -1,26 +1,20 @@
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
-        # Use a stack and set to collect the indices need to be removed
-        # Then iterate the string again to remove these indices
-
+        s = list(s)
         stack = []
-        remove = set()
 
-        for i in range(len(s)):
-            char = s[i]
-            if char == '(':
+        for i, c in enumerate(s):
+            if c == "(":
                 stack.append(i)
-            elif char == ')':
+            elif c == ")":
                 if stack:
                     stack.pop()
                 else:
-                    remove.add(i)
-
-        remove.update(stack)
-
-        ans = ""
-        for i in range(len(s)):
-            if i not in remove:
-                ans += s[i]
+                    s[i] = ''
         
-        return ans
+        for i in stack:
+            s[i] = ''
+        
+        return "".join(s)
+
+            
