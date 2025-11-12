@@ -8,6 +8,7 @@ class SnakeGame:
         self.n = width
         self.m = height
         self.snake_body = deque([(0, 0)])
+        self.snake_set = {(0, 0)}
         self.score = 0
 
 
@@ -16,14 +17,19 @@ class SnakeGame:
         dr, dc = directions[direction]
         nr, nc = self.snake_body[0][0] + dr, self.snake_body[0][1] + dc
 
-        if nr < 0 or nr >= self.m or nc < 0 or nc >= self.n or ((nr, nc) in list(self.snake_body)[:len(self.snake_body) - 1]):
+        tail = self.snake_body[-1]
+        self.snake_set.remove(tail)
+
+        if nr < 0 or nr >= self.m or nc < 0 or nc >= self.n or ((nr, nc) in self.snake_set):
             return -1
         
         self.snake_body.appendleft((nr, nc))
+        self.snake_set.add((nr, nc))
 
         if self.food_index < len(self.food) and [nr, nc] == self.food[self.food_index]:
             self.score += 1
             self.food_index += 1
+            self.snake_set.add(tail)
         else:
             self.snake_body.pop()
         
