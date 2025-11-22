@@ -6,6 +6,9 @@ class Solution:
             left = leftChild[i]
             right = rightChild[i]
 
+            if i == left or i == right:
+                continue
+
             if left != -1:
                 indegree[left] += 1
                 if indegree[left] > 1:
@@ -16,15 +19,16 @@ class Solution:
                 if indegree[right] > 1:
                     return False
         
-        root = [indegree[i] for i in range(n) if indegree[i] == 0]
+        root = [i for i in range(n) if indegree[i] == 0]
         if len(root) != 1:
             return False
+        
         r = root[0]
-
         state = [0] * n
 
         def dfs(node):
             if state[node] == 1:
+                print(node)
                 return False
             
             if state[node] == 2:
