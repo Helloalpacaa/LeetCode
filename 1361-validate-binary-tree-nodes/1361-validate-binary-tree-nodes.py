@@ -1,57 +1,45 @@
 class Solution:
     def validateBinaryTreeNodes(self, n: int, leftChild: List[int], rightChild: List[int]) -> bool:
-        indegree = [0] * n
+        # Tree: every node has up to 1 indegree, root has 0 indegree
+        indegree = defaultdict(int)
+        adj = defaultdict(list)
 
         for i in range(n):
-            left = leftChild[i]
-            right = rightChild[i]
+            if leftChild[i] != -1:
+                indegree[leftChild[i]] += 1
+                adj[i].append(leftChild[i])
+            if rightChild[i] != -1:
+                indegree[rightChild[i]] += 1
+                adj[i].append(rightChild[i])
 
-            if i == left or i == right:
-                continue
-
-            if left != -1:
-                indegree[left] += 1
-                if indegree[left] > 1:
-                    return False
-
-            if right != -1:
-                indegree[right] += 1
-                if indegree[right] > 1:
-                    return False
+        for i in range(n):
+            if indegree[i] > 1:
+                return False
         
-        root = [i for i in range(n) if indegree[i] == 0]
-        if len(root) != 1:
+        rootCount = sum(1 for i in range(n) if indegree[i] == 0)
+        if rootCount != 1:
             return False
         
-        r = root[0]
-        state = [0] * n
+        # Circle check
+        root = next(i for i in range(n) if indegree[i] == 0)
+        status = [0] * n # 0: not visited, 1: visiting, 2: visited
 
         def dfs(node):
-            if state[node] == 1:
-                print(node)
+            if status[node] == 2:
+                return True
+            
+            if status[node] == 1:
                 return False
             
-            if state[node] == 2:
-                return True
-
-            state[node] = 1
-            if leftChild[node] != -1:
-                if not dfs(leftChild[node]):
-                    return False
-            if rightChild[node] != -1:
-                if not dfs(rightChild[node]):
+            status[node] = 1
+            for neighbor in adj[node]:
+                if not dfs(neighbor):
                     return False
             
-            state[node] = 2
+            status[node] = 2
             return True
         
-        for i in range(n):
-            if not dfs(i):
-                return False
-        
-        return True
-        
-            
+        dfs(root)
+        return all(status[node] == 2 for node in range(n))
 
-            
 
