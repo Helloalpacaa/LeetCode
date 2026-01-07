@@ -1,22 +1,25 @@
 class Solution:
     def minimumEffortPath(self, heights: List[List[int]]) -> int:
+        # maintain a min-heap storing (diff, row, col)
         m, n = len(heights), len(heights[0])
-        efforts = [[float('inf')] * n for _ in range(m)]
-        heap = [(0, 0, 0)] # (effort, x, y)
-        directions = [[-1, 0], [0, -1], [1, 0], [0, 1]]
+        pq = [(0, 0, 0)]
+        directions = [[-1, 0], [0, 1], [1, 0], [0, -1]]
+        visited = [[False] * n for _ in range(m)]
+        maxdiff = float("-inf")
 
-        while heap:
-            effort, x, y = heapq.heappop(heap)
+        while pq:
+            diff, i, j = heapq.heappop(pq)
+            if visited[i][j]:
+                continue
+            visited[i][j] = True
+            maxdiff = max(maxdiff, diff)
 
-            if x == m - 1 and y == n - 1:
-                return effort
-
+            if i == m - 1 and j == n - 1:
+                return maxdiff
+            
             for dr in directions:
-                nx, ny = x + dr[0], y + dr[1]
-                if 0 <= nx < m and 0 <= ny < n:
-                    new_effort = max(effort, abs(heights[x][y] - heights[nx][ny]))
-                    if new_effort < efforts[nx][ny]:
-                        efforts[nx][ny] = new_effort
-                        heapq.heappush(heap, (new_effort, nx, ny))
+                ni, nj = i + dr[0], j + dr[1]
+                if 0 <= ni < m and 0 <= nj < n and not visited[ni][nj]:
+                    heapq.heappush(pq, (abs(heights[i][j] - heights[ni][nj]), ni, nj))
         
-        return -1
+
