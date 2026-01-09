@@ -7,24 +7,21 @@
 class Solution:
     def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         ans = []
-        if root is None:
-            return ans
 
-        queue = deque([root])
-        direction = 1
+        def traversal(node: Optional[TreeNode], depth: int) -> None:
+            if not node:
+                return
+            
+            if len(ans) < depth:
+                ans.append([])
+            
+            if depth % 2 == 1:
+                ans[depth - 1].append(node.val)
+            else:
+                ans[depth - 1].insert(0, node.val)
 
-        while queue:
-            level = []
-            for _ in range(len(queue)):
-                node = queue.popleft()
-                level.append(node.val)
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-            ans.append(level[::direction])
-            direction *= (-1)
+            traversal(node.left, depth + 1)
+            traversal(node.right, depth + 1)
         
-        return ans
-        
+        traversal(root, 1)
         return ans
