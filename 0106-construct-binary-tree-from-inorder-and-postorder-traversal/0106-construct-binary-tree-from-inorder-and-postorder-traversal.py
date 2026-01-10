@@ -6,20 +6,22 @@
 #         self.right = right
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
-        def findRoot(inStart, inEnd, postStart, postEnd) -> Optional[TreeNode]:
-            if inStart >= inEnd or postStart >= postEnd:
-                return None
-            
-            rootValue = postorder[postEnd - 1]
-            rootIdx = self.inorderMap[rootValue]
-            leftLength = rootIdx - inStart
+        getIndex = {num: index for index, num in enumerate(inorder)}
+        n = len(inorder)
 
-            root = TreeNode(rootValue)
-            root.left = findRoot(inStart, rootIdx, postStart, postStart + leftLength)
-            root.right = findRoot(rootIdx + 1, inEnd, postStart + leftLength, postEnd - 1)
+        def getRoot(inStart, inEnd, posStart, posEnd):
+            if inStart > inEnd or posStart > posEnd:
+                return None
+
+            rootVal = postorder[posEnd]
+            index = getIndex[rootVal]
+            left = index - inStart
+            right = inEnd - index
+
+            root = TreeNode(rootVal)
+            root.left = getRoot(inStart, inStart + left - 1, posStart, posStart + left - 1)
+            root.right = getRoot(index + 1, index + right, posStart + left, posEnd - 1)
 
             return root
         
-        self.inorderMap = {val: idx for idx, val in enumerate(inorder)}
-
-        return findRoot(0, len(inorder), 0, len(postorder))
+        return getRoot(0, n - 1, 0, n - 1)
