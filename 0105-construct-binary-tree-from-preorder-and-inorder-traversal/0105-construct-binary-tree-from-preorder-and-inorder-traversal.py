@@ -6,29 +6,28 @@
 #         self.right = right
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        # 1. build a hashmap of (value, index) pair of inorder
-        hashmap = {}
-        for idx, val in enumerate(inorder):
-            hashmap[val] = idx
-        
-        # 2. find the root of each sub tree
-        def findRoot(preStart, preEnd, inStart, inEnd) -> TreeNode:
-            # base case:
-            if preStart > preEnd or inStart > inEnd:
+        # hashmap -> val in preorder: index in inorder
+        getIndex = {num: i for i, num in enumerate(inorder)}
+        n = len(preorder)
+
+        # find root
+        # the first element in preorder is always the root, then find its place in inorder, left part is
+        # its left child, right part is its right child
+        def findRoot(preorderStart: int, preorderEnd: int, inorderStart: int, inorderEnd: int):
+            if preorderStart > preorderEnd or inorderStart > inorderEnd:
                 return None
 
-            # Create the root node
-            rootVal = preorder[preStart]
+            rootVal = preorder[preorderStart]
+            index = getIndex[rootVal]
+            leftLength = index - inorderStart
+            rightLength = inorderEnd - index
+            # print(rootVal, leftLength, rightLength, preorderStart, preorderEnd, inorderStart, inorderEnd)
+
             root = TreeNode(rootVal)
-            # find the index of root in inorder
-            rootIdx = hashmap[rootVal]
-            # find the length of the left sub tree
-            length = rootIdx - inStart
+            root.left = findRoot(preorderStart + 1, preorderStart + leftLength, inorderStart, index - 1)
+            root.right = findRoot(preorderStart + 1 + leftLength, preorderEnd, index + 1, inorderEnd)
 
-            root.left = findRoot(preStart + 1, preStart + length, inStart, rootIdx - 1)
-            root.right = findRoot(preStart + length + 1, preEnd, rootIdx + 1, inEnd)
-
+            
             return root
         
-        return findRoot(0, len(preorder) - 1, 0, len(inorder) - 1)
-
+        return findRoot(0, n - 1, 0, n - 1)
