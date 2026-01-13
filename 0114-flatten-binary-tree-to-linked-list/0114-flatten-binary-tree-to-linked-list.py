@@ -9,22 +9,31 @@ class Solution:
         """
         Do not return anything, modify root in-place instead.
         """
-        if root is None:
+        if not root:
             return
+
+        stack = []
+
+        def traversal(node: Optional[TreeNode]) -> None:
+            if not node:
+                return
             
-        self.flatten(root.left)
-        self.flatten(root.right)
-
-        left = root.left
-        right = root.right
-
-        root.left = None
-        root.right = left
-
-        p = root
-        while p.right:
-            p = p.right
+            traversal(node.right)
+            traversal(node.left)
+            stack.append(node)
+            # post order: 6, 5, 4, 3, 4, 2, 1
         
-        p.right = right
+        traversal(root)
+        dummy = TreeNode(0)
+        curr = dummy
+        while stack:
+            curr.right = stack.pop()
+            curr.left = None
+            curr = curr.right
+
+
         
 
+            
+            
+        
