@@ -9,13 +9,15 @@ class Solution:
         if not root:
             return True
         
-        if abs(self.height(root.left) - self.height(root.right)) >= 2:
+        def getDepth(node: Optional[TreeNode]) -> int:
+            if not node:
+                return 0
+            
+            return 1 + max(getDepth(node.left), getDepth(node.right))
+
+        if abs(getDepth(root.left) - getDepth(root.right)) > 1:
             return False
         
         return self.isBalanced(root.left) and self.isBalanced(root.right)
-    
-    def height(self, node: Optional[TreeNode]) -> int:
-        if not node:
-            return 0
         
-        return 1 + max(self.height(node.right), self.height(node.left))
+        
